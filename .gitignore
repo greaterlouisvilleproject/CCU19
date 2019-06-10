@@ -1,0 +1,10 @@
+
+*.otf
+
+\.RData
+
+\.Rhistory
+
+\.Rproj\.user/
+
+ccu19\.nb\.html

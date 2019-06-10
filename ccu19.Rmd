@@ -1,0 +1,404 @@
+---
+title: "R Notebook"
+---
+
+
+```{r setup}
+getwd()
+
+library(tidyr)
+library(readr)
+library(dplyr)
+library(stringr)
+library(magrittr)
+library(glptools)
+
+library(broom)
+library(purrr)
+
+library(feather)
+library(classInt)
+library(scales)
+library(ggplot2)
+library(ggthemes)
+library(ggrepel)
+```
+
+```{r read_nccs_csv, eval=FALSE}
+nccs_pc <- read_csv("data/nccs.core2015pc.csv")
+
+nteedocalleins <- read_csv("data/nccs.nteedocAllEins.csv",
+                           col_types = cols_only(EIN = col_character(),
+                                                 NteeFinal = col_character(),
+                                                 Name =  col_character()))
+ 
+#Join with the 2015 NCCS Core PC File to get the NTEEFINAL field by EIN
+nccs_pc %<>% left_join(nteedocalleins, by = "EIN")
+
+write_feather(nccs_pc, "data/nccs_pc.feather")
+
+nccs_pf <- read_csv("data/nccs.core2015pf.csv")
+
+nccs_pf %<>% 
+  mutate(EIN = as.character(EIN)) %>%
+  left_join(nteedocalleins, by = "EIN")
+
+write_feather(nccs_pf, "data/nccs_pf.feather")
+
+download.file("https://test-urban-nccs.pantheonsite.io/sites/default/files/2018-10/Prep%20NCCS%20Core%20File_1.R", "Prep NCCS Core File.R")
+
+```
+
+```{r read_nccs_feather}
+nccs_pc <- read_feather("data/nccs_pc.feather")
+nccs_pf <- read_feather("data/nccs_pf.feather")
+```
+
+```{r process_nccs}
+#nccs_pc <- read_csv("data/nccs.core2014pc.csv")
+
+nccs_pc %<>%
+  mutate(
+    FNDNCD = as.numeric(FNDNCD),
+    FRCD = as.numeric(FRCD)) %>%
+  filter(
+    OUTNCCS != "OUT",
+    FNDNCD %not_in% c(2, 3, 4), #to filter out private foundations
+    FRCD %not_in% c(60, 61, 130, 131), #to filter out religious organizations not required to file
+    GRREC >= 50000 | TOTREV>50000)  #to filter out small orgs
+
+nccs_pc %<>%
+  filter(FIPS == 21111) %>% 
+  select(Name, NTMAJ12, CONT, ASS_EOY, EXPS) %>%
+  arrange(desc(CONT)) %>%
+  mutate_at(vars(CONT:EXPS), dollar_format(scale = 0.000001, suffix = "m", accuracy = 1))
+
+nccs_pf %<>%
+  pull_peers_FIPS() %>%
+  filter(FIPS == 21111) %>%
+  select(Name, NTMAJ12, P3EYTFND) %>%
+  arrange(desc(P3EYTFND)) %>%
+  mutate(P3EYTFND = dollar(P3EYTFND, scale = 0.000001, suffix = "m", accuracy = 1))
+
+nccs_pf %<>%
+  pull_peers_FIPS()
+  group_by(FIPS) %>%
+  summarise(
+    asstets = sum(P3EYTFND, na.rm = TRUE) %>% round(digits = 1))
+
+nccs_pf %<>%
+  mutate(year = 2015) %>%
+  stl_merge(asstets) %>%
+  left_join(population_df_merged, by = c("FIPS", "year")) %>%
+  mutate_at(vars(asstets), ~. / population) %>%
+  mutate(year = 2015)
+
+test2 <- nccs_pc %>%
+  pull_peers_FIPS() %>%
+  group_by(NTMAJ10, FIPS) %>%
+  summarize( 
+      Number_of_Orgs = n(),
+      Revenue = sum(TOTREV, na.rm =TRUE) %>% round(digits = 1),
+      Expenses = sum(EXPS, na.rm =TRUE) %>% round(digits = 1),
+      Assets = sum(ASS_EOY, na.rm =TRUE) %>% round(digits = 1)) %>%
+  group_by(FIPS) %>% 
+  summarise_if(is.numeric, sum) %>% 
+  mutate(year = 2015) %>%
+  stl_merge(Number_of_Orgs:Assets) %>%
+  left_join(population_df_merged, by = c("FIPS", "year")) %>%
+  mutate_at(vars(Number_of_Orgs:Assets), ~. / population) %>%
+  mutate(year = 2014)
+
+test$year <- 2015
+
+test_3 <- bind_rows(test, test2)
+
+png("test.png", 3000, 2400, res = 200)
+g <- test %>% mutate(sex = "total") %>% ranking(Revenue, y_title = "Dollars", 
+                                                plot_title = "Charitable receipts")
+print(g)
+dev.off()
+
+png("test1.png", 3000, 2400, res = 200)
+g <- nccs_pf %>% mutate(sex = "total") %>% ranking(asstets, y_title = "Dollars", 
+                                                plot_title = "Philanthropy $ / person")
+print(g)
+dev.off()
+
+```
+
+```{r capital_investment}
+for(c in unique(FIPS_df$city[FIPS_df$current == 1])){
+  df <- readxl::read_xlsx("data/capital/Investments by City.xlsx",
+                          sheet = c, skip = 31, col_types = c("numeric", "numeric", "numeric"),
+                          col_names = c("year", "capital", "deals"))
+  
+  df$city <- c
+  
+  capital_all <- assign_row_join(capital_all, df)
+
+  
+  df <- readxl::read_xlsx("data/capital/Investments by City with Investor Screen.xlsx", 
+                          sheet = c, skip = 31, col_types = c("numeric", "numeric", "numeric"),
+                          col_names = c("year", "capital_instate", "deals_instate"))
+  
+  df$city <- c
+  
+  capital_in_state <- assign_row_join(capital_in_state, df)
+}
+
+FIPS_df <- FIPS_df %>% filter(FIPS %not_in% c(29189, 29510))
+
+population_df_merged_2019 <- population_df_merged %>%
+  filter(year == 2018) %>%
+  mutate(year = 2019)
+
+population_df_merged_all <- bind_rows(population_df_merged, population_df_merged_2019)
+
+lou_population <- population_df_merged_all %>% 
+  filter(FIPS == 21111) %>% 
+  transmute(year, pop_lou = population)
+
+MSA_pop <- glpdata:::population %>% select(FIPS, year, core_county_pct)
+MSA_pop_18 <- MSA_pop %>% filter(year == 2017) %>% mutate(year = 2018)
+MSA_pop_19 <- MSA_pop %>% filter(year == 2017) %>% mutate(year = 2019)
+MSA_pop %<>% bind_rows(MSA_pop_18, MSA_pop_19)
+MSA_pop %<>% 
+  left_join(population_df_merged_all, by = c("FIPS", "year")) %>%
+  mutate(MSA_pop = population * 100 / core_county_pct) %>%
+  select(FIPS, year, MSA_pop)
+
+MSA_lou_pop <- MSA_pop %>%
+  filter(FIPS == 21111) %>%
+  transmute(year, lou_MSA_pop = MSA_pop)
+
+capital <- full_join(capital_all, capital_in_state, by = c("year", "city")) %>%
+  left_join(FIPS_df, by = "city") %>%
+  left_join(population_df_merged_all, by = c("FIPS", "year")) %>%
+  left_join(lou_population, by = "year") %>%
+  left_join(MSA_pop, by = c("FIPS", "year")) %>%
+  left_join(MSA_lou_pop, by = "year") %>%
+  mutate_at(vars(capital, capital_instate, deals, deals_instate), replace_na, 0) %>%
+  transmute(
+    FIPS, year, MSA_pop, lou_MSA_pop,
+    capital = capital * 1000000,
+    capital_instate = capital_instate * 1000000,
+    
+    capital_pp = capital / MSA_pop,
+    capital_instate_pp = capital_instate / MSA_pop,
+    
+    #capital_lou = capital * pop_lou / population,
+    #capital_instate_lou = capital_instate * pop_lou / population,
+    
+    capital_lou = capital * lou_MSA_pop / MSA_pop,
+    capital_instate_lou = capital_instate * lou_MSA_pop / MSA_pop) %>%
+  COLA(capital:capital_instate_lou, base_year = 2019, rpp = FALSE)
+
+capital_rm3 <- capital %>%
+  group_by(FIPS) %>%
+  mutate_at(vars(capital:capital_instate_lou), rollmeanr, 3) %>%
+  ungroup()
+
+capital_avg <- capital %>%
+  pull_peers_FIPS() %>%
+  group_by(FIPS) %>%
+  summarise(
+    population = mean(MSA_pop),
+    #average_vc = sum(capital) / sum(population) / length(2008:2019),
+    average_vc = sum(capital) * mean(lou_MSA_pop) / mean(MSA_pop) / length(2008:2019),
+    average_vc_instate = sum(capital_instate) * mean(lou_MSA_pop) / mean(MSA_pop) / length(2008:2019)) %>%
+  mutate(year = 2019) %>%
+  pull_peers_FIPS()
+
+capital_avg_3yr <- capital %>%
+  filter(year %in% 2017:2019) %>%
+  pull_peers_FIPS() %>%
+  group_by(FIPS) %>%
+  summarise(
+    population = mean(MSA_pop),
+    #average_vc = sum(capital) / sum(population) / length(2017:2019),
+    average_vc = sum(capital) * mean(lou_MSA_pop) / mean(MSA_pop)/ length(2017:2019),
+    average_vc_instate = sum(capital_instate) * mean(lou_MSA_pop) / mean(MSA_pop) / length(2017:2019)) %>%
+  mutate(year = 2019) %>%
+  pull_peers_FIPS()
+
+
+```
+
+```{r capital_graphs}
+library(showtext)
+showtext_auto()
+font_add("Museo Sans 300", "MuseoSans_300.otf")
+font_add("Museo Sans 300 Italic", "MuseoSans_300_Italic.otf")
+
+graph_df <- data.frame(
+  variable = names(capital)[5:10],
+  title = c("Venture Capital", "Instate Venture Capital", 
+            "Venture Capital per capita", "Instate Venture Capital per capita", 
+            "Venture Capital scaled to Louisville", "Instate Venture Capital scaled to Louisville"),
+            #"Venture Capital scaled to MSA", "Venture Capital Instate scaled to MSA"),
+  per_capita = c(F, F, T, T, F, F),
+  stringsAsFactors = FALSE)
+  
+for(r in 1:nrow(graph_df)){
+  g <- graph_df[r,]
+  
+  print(g$variable)
+  
+  if (g$per_capita) {
+    label_fxn <- dollar_format(accuracy = 0.1, scale = 1)
+    axis_fxn  <- dollar_format(accuracy = 1, scale = 1)
+  } else {
+    label_fxn <- dollar_format(accuracy = 0.1, scale = .000001, suffix = "M")
+    axis_fxn  <- dollar_format(accuracy = 1, scale = .000001, suffix = "M")
+  }
+  
+  png("images/" %p% g$variable %p% "_ranking.png", 3000, 2400, res = 200)
+  p <- ranking(capital, g$variable, 2019, plot_title = g$title %p% ", 2019", y_title = "Dollars", 
+               subtitle_text = "Adjusted for inflation", caption_text = "GLP analysis of PitchBook data",
+               label_function = label_fxn, sigfig = 4)
+  print(p)
+  dev.off()
+  
+  png("images/" %p% g$variable %p% "_ranking_3yr.png", 3000, 2400, res = 200)
+  p <- ranking(capital_rm3, g$variable, 2018, plot_title = g$title %p% ", 2017-2019", y_title = "Dollars", 
+               subtitle_text = "Adjusted for inflation", caption_text = "GLP analysis of PitchBook data",
+               label_function = label_fxn, sigfig = 4)
+  print(p)
+  dev.off()
+  
+  png("images/" %p% g$variable %p% "_trendline.png", 3000, 2400, res = 200)
+  p <- trend(capital, g$variable, plot_title = g$title, y_title = "Dollars", 
+             subtitle_text = "Adjusted for inflation", caption_text = "GLP analysis of PitchBook data",
+             label_function = label_fxn,
+             axis_function = axis_fxn)
+  print(p)
+  dev.off()
+  
+  png("images/" %p% g$variable %p% "_trendline_3yr.png", 3000, 2400, res = 200)
+  p <- trend(capital, g$variable, plot_title = g$title, y_title = "Dollars", 
+             subtitle_text = "Adjusted for inflation", caption_text = "GLP analysis of PitchBook data",
+             rollmean = 3,
+             label_function = label_fxn,
+             axis_function = axis_fxn)
+  print(p)
+  dev.off()
+}
+
+
+png("images/capital_ranking_all.png", 3000, 2400, res = 200)
+p <- ranking(capital_avg, "average_vc", 2019, plot_title = "Venture Capital scaled to Louisville, 2008-2019", y_title = "Dollars", 
+             subtitle_text = "Adjusted for inflation", caption_text = "GLP analysis of PitchBook data",
+             label_function = dollar_format(accuracy = 0.1, scale = .000001, suffix = "M"), sigfig = 4)
+print(p)
+dev.off()
+
+png("images/capital_ranking_all_lou.png", 3000, 2400, res = 200)
+p <- ranking(capital_avg, "average_vc_instate", 2019, plot_title = "Instate Venture Capital scaled to Louisville, 2008-2019", y_title = "Dollars", 
+             subtitle_text = "Adjusted for inflation", caption_text = "GLP analysis of PitchBook data",
+             label_function = dollar_format(accuracy = 0.1, scale = .000001, suffix = "M"), sigfig = 4)
+print(p)
+dev.off()
+
+png("images/capital_ranking_all_3yr.png", 3000, 2400, res = 200)
+p <- ranking(capital_avg_3yr, "average_vc", 2019, plot_title = "Average Venture Capital scaled to Louisville, 2017-2019", y_title = "Dollars", 
+             subtitle_text = "Adjusted for inflation", caption_text = "GLP analysis of PitchBook data",
+             label_function = dollar_format(accuracy = 0.1, scale = .000001, suffix = "M"), sigfig = 4)
+print(p)
+dev.off()
+
+
+
+
+
+png("images/investment_population.png", 3000, 2400, res = 200)
+g <- ggplot(capital_avg, aes(x = population, y = average_vc, label = city)) +
+  geom_point(size = 5) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  #geom_abline(slope = capital_avg$average_vc[capital_avg$city == "Louisville"] / capital_avg$population[capital_avg$city == "Louisville"]) +
+  scale_x_continuous(labels = comma_format()) +
+  scale_y_continuous(labels = dollar_format(accuracy = 1, scale = .000001, suffix = "M")) +
+  geom_text_repel(size = 16, family = "Museo Sans 300")
+
+g %<>% glptools:::tl_style(
+  plot_title = "Average VC investment scaled to Louisville, 2008-2019",
+  y_title = "Average VC investment per capita",
+  x_title = "Average Population",
+  caption_text = "",
+  subtitle_text = "",
+  cat_names = "")
+
+print(g)
+dev.off()
+
+
+png("images/investment_population_3yr.png", 3000, 2400, res = 200)
+g <- ggplot(capital_avg_3yr, aes(x = population, y = average_vc, label = city)) +
+  geom_point(size = 5) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  #geom_abline(slope = capital_avg_3yr$average_vc[capital_avg_3yr$city == "Louisville"] / 
+  #              capital_avg_3yr$population[capital_avg_3yr$city == "Louisville"]) +
+  scale_x_continuous(labels = comma_format()) +
+  scale_y_continuous(labels = dollar_format(accuracy = 1, scale = .000001, suffix = "M")) +
+  geom_text_repel(size = 16, family = "Museo Sans 300")
+
+g %<>% glptools:::tl_style(
+  plot_title = "Average VC investment scaled to Louisville, 2017-2019",
+  y_title = "Average VC investment per capita",
+  x_title = "Average Population",
+  caption_text = "",
+  subtitle_text = "county population",
+  cat_names = "")
+
+print(g)
+dev.off()
+
+
+capital_avg %<>%
+  mutate(ratio = average_vc_instate / average_vc * 100)
+
+ggplot(capital_avg, aes(x = population, y = ratio, label = city)) +
+  geom_point() +
+  geom_text() + 
+  geom_smooth(method = "lm")
+
+
+
+png("images/capital_inhouse.png", 3000, 2400, res = 200)
+p <- ranking(capital_avg, "ratio", 2019, plot_title = "Percent of VC from in-state, 2008-2019",
+             subtitle_text = "Adjusted for inflation", caption_text = "GLP analysis of PitchBook data")
+print(p)
+dev.off()
+
+capital %<>%
+  mutate(inhouse = capital_instate / capital * 100)
+
+png("images/capital_inhouse_trendline.png", 3000, 2400, res = 200)
+p <- trend(capital, inhouse, plot_title = "Percent of VC from in-state",
+           subtitle_text = "Adjusted for inflation", caption_text = "GLP analysis of PitchBook data")
+print(p)
+dev.off()
+
+png("images/capital_inhouse_trendline_3yr.png", 3000, 2400, res = 200)
+p <- trend(capital, inhouse, plot_title = "Percent of VC from in-state", rollmean = 3,
+           subtitle_text = "Adjusted for inflation", caption_text = "GLP analysis of PitchBook data")
+print(p)
+dev.off()
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

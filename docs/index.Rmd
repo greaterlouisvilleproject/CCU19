@@ -1,0 +1,212 @@
+---
+title: "Exploring Venture Capital in Louisville"
+output: html_document
+---
+
+<style type="text/css">
+h1 {
+  text-align: center;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-family: "Museo Sans 300";
+}
+body{
+  font-family: "Museo Sans 300";
+  font-size: 15px;
+}
+</style>
+
+**These graphs explore Venture Capital investment in Louisville between 2008 and 2019 based on data from Pitchbook. I included the ability to toggle between different years of data and ways of adjusting the data if you want to explore. The defaults I selected are the ones I think tell the story best, so you can scroll through and get all the whole picture without toggling. My main takeaways are in bold.**
+
+<br>
+
+***
+
+<br>
+
+# Raw data 
+
+These graphs show the raw amount of venture capital investment, without any other adjustments.
+  
+Note: Since we're only partway through 2019, investment in our peer cities appears to have dropped off. Normally I would remove 2019, but since it is an important year for an accurate picture of Louisville's VC, I left it in. Also sorry some text runs off the graphs; I'll fix it before we distribute these.
+
+**Louisville has generally seen low levels of VC investment compared to peer cities, though there was much more VC investment activity in 2018 and 2019. The data isn't super comparable without adjusting for population, though.**
+
+![](../images/capital_ranking.png){width=80%}
+
+![](../images/capital_trendline.png){width=80%}
+
+<br>
+
+***
+
+<br>
+
+# Total Venture Capital
+These graphs are adjusted for the population size of each city.
+
+*  The **Unadjusted** graphs show the raw values.
+*  The **Per capita** graphs show VC investment per person.  
+*  The **Per Lou** graphs keep Louisville's VC dollars at the same level and adjust other cities accordingly. For example, a city with twice the    population as Louisville would have its VC dollars halved in the "scaled to Lou" graphs. *The comparision is the exact same as the per           capita graphs except for the dollar amounts.* This might seem more natural to some people, especially those with an understanding of    dollar amounts in the VC space. Just switch to "per capita" if this seems comfusing.) 
+
+## Ranking {.tabset}
+
+*  Toggle the top slider to switch between 2019 data, an average of 2017-2019, and an average for 2008-2019.
+*  Toggle the bottom slider to switch between an unadjusted graph, a per capita graph, and a per Lou graph.  
+
+Because the data is so variable from year to year, I included rankings for three different timespans.  
+
+**After adjusting for population (using the MSA population), Louisville is much higher in the rankings. While Louisville ranks #1 in VC investment per capita in 2019, Louisville is in the middle of the pack over a larger time horizon.**
+
+### 2019 {.tabset}
+
+#### Unadjusted 
+![](../images/capital_ranking.png){width=80%}
+
+#### Per capita
+![](../images/capital_pp_ranking.png){width=80%}
+
+#### Per Lou {.active}
+![](../images/capital_lou_ranking.png){width=80%}
+
+### 2017-2019 {.tabset .active}
+
+#### Unadjusted
+![](../images/capital_ranking_3yr.png){width=80%}
+
+#### Per capita
+![](../images/capital_pp_ranking_3yr.png){width=80%}
+
+#### Per Lou {.active}
+![](../images/capital_lou_ranking_3yr.png){width=80%}
+
+### 2008-2019 {.tabset}
+
+#### Per Lou {.active}
+![](../images/capital_ranking_all.png){width=80%}
+
+## Trendline {.tabset}
+
+**Louisville has tended to rank slightly above the 25th percentile of peer cities, with occasional large deals sending us much higher.**
+
+### 1-year data {.tabset}
+
+#### Unadjusted 
+![](../images/capital_trendline.png){width=80%}
+
+#### Per capita
+![](../images/capital_pp_trendline.png){width=80%}
+
+#### Per Lou {.active}
+![](../images/capital_lou_trendline.png){width=80%}
+
+
+### 3-year data {.tabset .active}
+
+#### Unadjusted
+![](../images/capital_trendline_3yr.png){width=80%}
+
+#### Per capita
+![](../images/capital_pp_trendline_3yr.png){width=80%}
+
+#### Per Lou {.active}
+![](../images/capital_lou_trendline_3yr.png){width=80%}
+
+## Note: City size and VC Investment {.tabset}
+Money follows money: larger cities attract more venture capital, even after adjusting for population. You would expect a city twice the size of Louisville to attract *more* than twice the amount of venture capital. These graphs compare average scaled VC investment with population.
+
+The data is adjusted for population, so if all cities had the same investment per capita, they would be on a horizontal line. The blue line is a regression line showing the actual relationship based on the data.  
+
+**Louisville performs about average from 2008 to 2019 and better than we would expect from 2017-2019. With the exception of Memphis, between 2008 and 2019, every city smaller than Louisville had lower VC investment per capita, and every city larger than Louisville had higher VC investment per capita. We are right where we would expect to be. We're outperforming our peers when you look at 2017-2019.**
+
+### 2008-2019 {.active}
+![](../images/investment_population.png){width=80%}
+
+<br>
+
+***
+
+<br>
+
+### 2017-2019
+![](../images/investment_population_3yr.png){width=80%}
+
+<br>
+
+***
+
+<br>
+
+# Instate Venture Capital 
+**These graphs are identical to the previous section, though the data is restricted to venture capital from instate sources, i.e. How much of or VC investment comes from in-house?**
+
+## Pecent of Capital from in-state {.tabset}
+
+**Louisville sees an average or greater-than-average proportion of VC investment come from in-state. I don't have a finger on whether that's good or bad, just including this here to be thorough.** 
+
+### Ranking
+![](../images/capital_inhouse.png){width=80%}
+
+### Trendline
+![](../images/capital_inhouse_trendline.png){width=80%}
+
+### Trendline, 3 year average {.active}
+![](../images/capital_inhouse_trendline_3yr.png){width=80%}
+
+## Ranking {.tabset}
+
+**When restrcting the data to only in-state VC, Louisville performs better than when using the overall data set. We stay in 1st in 2019, we move from 7th to 4th when looking at 2017-2019, and we move from 9th to 6th when looking at 2008-2019.**
+
+### 2019 {.tabset}
+
+#### Unadjusted 
+![](../images/capital_instate_ranking.png){width=80%}
+
+#### Per capita
+![](../images/capital_instate_pp_ranking.png){width=80%}
+
+#### Per Lou {.active}
+![](../images/capital_instate_lou_ranking.png){width=80%}
+
+### 2017-2019 {.tabset .active}
+
+#### Unadjusted
+![](../images/capital_instate_ranking_3yr.png){width=80%}
+
+#### Per capita
+![](../images/capital_instate_pp_ranking_3yr.png){width=80%}
+
+#### Per Lou {.active}
+![](../images/capital_instate_lou_ranking_3yr.png){width=80%}
+
+### 2008-2019 {.tabset}
+
+#### Per Lou {.active}
+![](../images/capital_ranking_all_lou.png){width=80%}
+
+## Trendline {.tabset}
+
+**Similar to overall VC investment, we tend to perform toward the 25th percentile, with large deals pulling us up.**
+
+### 1-year data {.tabset}
+
+#### Unadjusted 
+![](../images/capital_instate_trendline.png){width=80%}
+
+#### Per capita
+![](../images/capital_instate_pp_trendline.png){width=80%}
+
+#### Per Lou
+![](../images/capital_instate_lou_trendline.png){width=80%}
+
+### 3-year data {.tabset .active}
+
+#### Unadjusted
+![](../images/capital_instate_trendline_3yr.png){width=80%}
+
+#### Per capita
+![](../images/capital_instate_pp_trendline_3yr.png){width=80%}
+
+#### Per Lou {.active}
+![](../images/capital_instate_lou_trendline_3yr.png){width=80%}
+
