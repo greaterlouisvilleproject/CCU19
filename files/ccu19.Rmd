@@ -129,7 +129,7 @@ dev.off()
 
 ```{r capital_investment}
 for(c in unique(FIPS_df$city[FIPS_df$current == 1])){
-  df <- readxl::read_xlsx("data/capital/Investments by City.xlsx",
+  df <- readxl::read_xlsx("../data/capital/Investments by City.xlsx",
                           sheet = c, skip = 31, col_types = c("numeric", "numeric", "numeric"),
                           col_names = c("year", "capital", "deals"))
   
@@ -138,7 +138,7 @@ for(c in unique(FIPS_df$city[FIPS_df$current == 1])){
   capital_all <- assign_row_join(capital_all, df)
 
   
-  df <- readxl::read_xlsx("data/capital/Investments by City with Investor Screen.xlsx", 
+  df <- readxl::read_xlsx("../data/capital/Investments by City with Investor Screen.xlsx", 
                           sheet = c, skip = 31, col_types = c("numeric", "numeric", "numeric"),
                           col_names = c("year", "capital_instate", "deals_instate"))
   
@@ -191,7 +191,12 @@ capital <- full_join(capital_all, capital_in_state, by = c("year", "city")) %>%
     #capital_instate_lou = capital_instate * pop_lou / population,
     
     capital_lou = capital * lou_MSA_pop / MSA_pop,
-    capital_instate_lou = capital_instate * lou_MSA_pop / MSA_pop) %>%
+    capital_instate_lou = capital_instate * lou_MSA_pop / MSA_pop,
+    
+    deals,
+    deals_instate,
+    deals_lou = deals * lou_MSA_pop / MSA_pop,
+    deal_size = capital / deals) %>%
   COLA(capital:capital_instate_lou, base_year = 2019, rpp = FALSE)
 
 capital_rm3 <- capital %>%
@@ -206,7 +211,10 @@ capital_avg <- capital %>%
     population = mean(MSA_pop),
     #average_vc = sum(capital) / sum(population) / length(2008:2019),
     average_vc = sum(capital) * mean(lou_MSA_pop) / mean(MSA_pop) / length(2008:2019),
-    average_vc_instate = sum(capital_instate) * mean(lou_MSA_pop) / mean(MSA_pop) / length(2008:2019)) %>%
+    average_vc_instate = sum(capital_instate) * mean(lou_MSA_pop) / mean(MSA_pop) / length(2008:2019),
+    deal_size = sum(capital) / sum(deals),
+    deals_lou = mean(deals_lou),
+    deals_inhouse = sum(deals_instate) / sum(deals) * 100) %>%
   mutate(year = 2019) %>%
   pull_peers_FIPS()
 
@@ -218,18 +226,21 @@ capital_avg_3yr <- capital %>%
     population = mean(MSA_pop),
     #average_vc = sum(capital) / sum(population) / length(2017:2019),
     average_vc = sum(capital) * mean(lou_MSA_pop) / mean(MSA_pop)/ length(2017:2019),
-    average_vc_instate = sum(capital_instate) * mean(lou_MSA_pop) / mean(MSA_pop) / length(2017:2019)) %>%
+    average_vc_instate = sum(capital_instate) * mean(lou_MSA_pop) / mean(MSA_pop) / length(2017:2019),
+    deal_size = sum(capital) / sum(deals),
+    deals_lou = mean(deals_lou)) %>%
   mutate(year = 2019) %>%
   pull_peers_FIPS()
-
 
 ```
 
 ```{r capital_graphs}
 library(showtext)
 showtext_auto()
+setwd("..")
 font_add("Museo Sans 300", "MuseoSans_300.otf")
 font_add("Museo Sans 300 Italic", "MuseoSans_300_Italic.otf")
+setwd("docs")
 
 graph_df <- data.frame(
   variable = names(capital)[5:10],
@@ -355,7 +366,8 @@ dev.off()
 
 
 capital_avg %<>%
-  mutate(ratio = average_vc_instate / average_vc * 100)
+  mutate(
+    ratio = average_vc_instate / average_vc * 100)
 
 ggplot(capital_avg, aes(x = population, y = ratio, label = city)) +
   geom_point() +
@@ -370,8 +382,12 @@ p <- ranking(capital_avg, "ratio", 2019, plot_title = "Percent of VC from in-sta
 print(p)
 dev.off()
 
+
+
 capital %<>%
-  mutate(inhouse = capital_instate / capital * 100)
+  mutate(
+    inhouse = capital_instate / capital * 100,
+    inhouse_deals = deals_instate / deals * 100)
 
 png("images/capital_inhouse_trendline.png", 3000, 2400, res = 200)
 p <- trend(capital, inhouse, plot_title = "Percent of VC from in-state",
@@ -382,6 +398,111 @@ dev.off()
 png("images/capital_inhouse_trendline_3yr.png", 3000, 2400, res = 200)
 p <- trend(capital, inhouse, plot_title = "Percent of VC from in-state", rollmean = 3,
            subtitle_text = "Adjusted for inflation", caption_text = "GLP analysis of PitchBook data")
+print(p)
+dev.off()
+```
+
+```{r deals}
+
+# RANKING
+png("images/deals.png", 3000, 2400, res = 200)
+p <- ranking(capital, "deals", 2019, plot_title = "VC Deals, 2019", y_title = "Deals",
+             caption_text = "GLP analysis of PitchBook data", accuracy = 1)
+print(p)
+dev.off()
+
+
+png("images/deals_lou.png", 3000, 2400, res = 200)
+p <- ranking(capital, "deals_lou", 2019, plot_title = "VC Deals scaled to Louisville, 2019", y_title = "Deals",
+             caption_text = "GLP analysis of PitchBook data")
+print(p)
+dev.off()
+
+
+png("images/deals_lou_3yr.png", 3000, 2400, res = 200)
+p <- ranking(capital_avg_3yr, "deals_lou", 2019, plot_title = "VC Deals scaled to Louisville, 2017-2019", y_title = "Deals",
+             caption_text = "GLP analysis of PitchBook data")
+print(p)
+dev.off()
+
+
+png("images/deals_lou_all.png", 3000, 2400, res = 200)
+p <- ranking(capital_avg, "deals_lou", 2019, plot_title = "VC Deals scaled to Louisville, 2008-2019", y_title = "Deals",
+             caption_text = "GLP analysis of PitchBook data")
+print(p)
+dev.off()
+
+
+# TRENDLINE
+png("images/deals_trend.png", 3000, 2400, res = 200)
+p <- trend(capital, deals_lou, plot_title = "VC Deals scaled to Louisville", y_title = "Deals",
+           caption_text = "GLP analysis of PitchBook data")
+print(p)
+dev.off()
+
+png("images/deals_trend_3yr.png", 3000, 2400, res = 200)
+p <- trend(capital, deals_lou, plot_title = "VC Deals scaled to Louisville", rollmean = 3, y_title = "Deals",
+           caption_text = "GLP analysis of PitchBook data")
+print(p)
+dev.off()
+
+  
+# DEAL SIZE
+
+# RANKING
+png("images/deals_size.png", 3000, 2400, res = 200)
+p <- ranking(capital, "deal_size", 2019, plot_title = "Average Deal Size, 2019", y_title = "Dollars",
+             caption_text = "GLP analysis of PitchBook data", label_function = dollar_format(accuracy = 0.1, scale = .000001, suffix = "M"))
+print(p)
+dev.off()
+
+png("images/deals_size_3yr.png", 3000, 2400, res = 200)
+p <- ranking(capital_avg_3yr, "deal_size", 2019, plot_title = "Average Deal Size, 2017-2019",  y_title = "Dollars",
+             caption_text = "GLP analysis of PitchBook data", label_function = dollar_format(accuracy = 0.1, scale = .000001, suffix = "M"))
+print(p)
+dev.off()
+
+png("images/deals_size_all.png", 3000, 2400, res = 200)
+p <- ranking(capital_avg, "deal_size", 2019, plot_title = "Average Deal Size, 2008-2019",  y_title = "Dollars",
+             caption_text = "GLP analysis of PitchBook data", label_function = dollar_format(accuracy = 0.1, scale = .000001, suffix = "M"))
+print(p)
+dev.off()
+
+
+
+# TREND
+
+png("images/deals_size_trend.png", 3000, 2400, res = 200)
+p <- trend(capital, deal_size, plot_title = "Average VC Deal Size", y_title = "Dollars",
+           caption_text = "GLP analysis of PitchBook data", ylimits = c(0, 17000000))
+print(p)
+dev.off()
+
+png("images/deals_size_trend_3yr.png", 3000, 2400, res = 200)
+p <- trend(capital, deal_size, plot_title = "Average VC Deal Size", rollmean = 3, y_title = "Dollars",
+           caption_text = "GLP analysis of PitchBook data", ylimits = c(0, 6500000))
+print(p)
+dev.off()
+
+
+capital %<>% mutate(deals_inhouse = deals_instate / deals * 100)
+
+# INHOUSE
+png("images/deals_inhouse.png", 3000, 2400, res = 200)
+p <- ranking(capital_avg, "deals_inhouse", 2019, plot_title = "Percent of Deals from in-state, 2008-2019",
+             caption_text = "GLP analysis of PitchBook data")
+print(p)
+dev.off()
+
+png("images/deals_inhouse_trendline.png", 3000, 2400, res = 200)
+p <- trend(capital, deals_inhouse, plot_title = "Percent of VC Deals in-state", y_title = "Deals",
+           caption_text = "GLP analysis of PitchBook data")
+print(p)
+dev.off()
+
+png("images/deals_inhouse_trendline_3yr.png", 3000, 2400, res = 200)
+p <- trend(capital, deals_inhouse, plot_title = "Percent of VC Deals in-state", rollmean = 3, y_title = "Deals",
+           caption_text = "GLP analysis of PitchBook data")
 print(p)
 dev.off()
 
