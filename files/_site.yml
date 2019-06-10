@@ -1,5 +1,5 @@
 name: "CCU19"
-output_dir: "../_site"
+output_dir: "../docs"
 exclude: ["ccu19.Rmd"]
 
 navbar:
