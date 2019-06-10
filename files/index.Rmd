@@ -32,9 +32,9 @@ Note: Since we're only partway through 2019, investment in our peer cities appea
 
 **Louisville has generally seen low levels of VC investment compared to peer cities, though there was much more VC investment activity in 2018 and 2019. The data isn't super comparable without adjusting for population, though.**
 
-![](../images/capital_ranking.png){width=80%}
+![](images/capital_ranking.png){width=80%}
 
-![](../images/capital_trendline.png){width=80%}
+![](images/capital_trendline.png){width=80%}
 
 <br>
 
@@ -61,29 +61,29 @@ Because the data is so variable from year to year, I included rankings for three
 ### 2019 {.tabset}
 
 #### Unadjusted 
-![](../images/capital_ranking.png){width=80%}
+![](images/capital_ranking.png){width=80%}
 
 #### Per capita
-![](../images/capital_pp_ranking.png){width=80%}
+![](images/capital_pp_ranking.png){width=80%}
 
 #### Per Lou {.active}
-![](../images/capital_lou_ranking.png){width=80%}
+![](images/capital_lou_ranking.png){width=80%}
 
 ### 2017-2019 {.tabset .active}
 
 #### Unadjusted
-![](../images/capital_ranking_3yr.png){width=80%}
+![](images/capital_ranking_3yr.png){width=80%}
 
 #### Per capita
-![](../images/capital_pp_ranking_3yr.png){width=80%}
+![](images/capital_pp_ranking_3yr.png){width=80%}
 
 #### Per Lou {.active}
-![](../images/capital_lou_ranking_3yr.png){width=80%}
+![](images/capital_lou_ranking_3yr.png){width=80%}
 
 ### 2008-2019 {.tabset}
 
 #### Per Lou {.active}
-![](../images/capital_ranking_all.png){width=80%}
+![](images/capital_ranking_all.png){width=80%}
 
 ## Trendline {.tabset}
 
@@ -92,25 +92,25 @@ Because the data is so variable from year to year, I included rankings for three
 ### 1-year data {.tabset}
 
 #### Unadjusted 
-![](../images/capital_trendline.png){width=80%}
+![](images/capital_trendline.png){width=80%}
 
 #### Per capita
-![](../images/capital_pp_trendline.png){width=80%}
+![](images/capital_pp_trendline.png){width=80%}
 
 #### Per Lou {.active}
-![](../images/capital_lou_trendline.png){width=80%}
+![](images/capital_lou_trendline.png){width=80%}
 
 
 ### 3-year data {.tabset .active}
 
 #### Unadjusted
-![](../images/capital_trendline_3yr.png){width=80%}
+![](images/capital_trendline_3yr.png){width=80%}
 
 #### Per capita
-![](../images/capital_pp_trendline_3yr.png){width=80%}
+![](images/capital_pp_trendline_3yr.png){width=80%}
 
 #### Per Lou {.active}
-![](../images/capital_lou_trendline_3yr.png){width=80%}
+![](images/capital_lou_trendline_3yr.png){width=80%}
 
 ## Note: City size and VC Investment {.tabset}
 Money follows money: larger cities attract more venture capital, even after adjusting for population. You would expect a city twice the size of Louisville to attract *more* than twice the amount of venture capital. These graphs compare average scaled VC investment with population.
@@ -120,7 +120,7 @@ The data is adjusted for population, so if all cities had the same investment pe
 **Louisville performs about average from 2008 to 2019 and better than we would expect from 2017-2019. With the exception of Memphis, between 2008 and 2019, every city smaller than Louisville had lower VC investment per capita, and every city larger than Louisville had higher VC investment per capita. We are right where we would expect to be. We're outperforming our peers when you look at 2017-2019.**
 
 ### 2008-2019 {.active}
-![](../images/investment_population.png){width=80%}
+![](images/investment_population.png){width=80%}
 
 <br>
 
@@ -129,7 +129,7 @@ The data is adjusted for population, so if all cities had the same investment pe
 <br>
 
 ### 2017-2019
-![](../images/investment_population_3yr.png){width=80%}
+![](images/investment_population_3yr.png){width=80%}
 
 <br>
 
@@ -145,13 +145,13 @@ The data is adjusted for population, so if all cities had the same investment pe
 **Louisville sees an average or greater-than-average proportion of VC investment come from in-state. I don't have a finger on whether that's good or bad, just including this here to be thorough.** 
 
 ### Ranking
-![](../images/capital_inhouse.png){width=80%}
+![](images/capital_inhouse.png){width=80%}
 
 ### Trendline
-![](../images/capital_inhouse_trendline.png){width=80%}
+![](images/capital_inhouse_trendline.png){width=80%}
 
 ### Trendline, 3 year average {.active}
-![](../images/capital_inhouse_trendline_3yr.png){width=80%}
+![](images/capital_inhouse_trendline_3yr.png){width=80%}
 
 ## Ranking {.tabset}
 
@@ -160,29 +160,29 @@ The data is adjusted for population, so if all cities had the same investment pe
 ### 2019 {.tabset}
 
 #### Unadjusted 
-![](../images/capital_instate_ranking.png){width=80%}
+![](images/capital_instate_ranking.png){width=80%}
 
 #### Per capita
-![](../images/capital_instate_pp_ranking.png){width=80%}
+![](images/capital_instate_pp_ranking.png){width=80%}
 
 #### Per Lou {.active}
-![](../images/capital_instate_lou_ranking.png){width=80%}
+![](images/capital_instate_lou_ranking.png){width=80%}
 
 ### 2017-2019 {.tabset .active}
 
 #### Unadjusted
-![](../images/capital_instate_ranking_3yr.png){width=80%}
+![](images/capital_instate_ranking_3yr.png){width=80%}
 
 #### Per capita
-![](../images/capital_instate_pp_ranking_3yr.png){width=80%}
+![](images/capital_instate_pp_ranking_3yr.png){width=80%}
 
 #### Per Lou {.active}
-![](../images/capital_instate_lou_ranking_3yr.png){width=80%}
+![](images/capital_instate_lou_ranking_3yr.png){width=80%}
 
 ### 2008-2019 {.tabset}
 
 #### Per Lou {.active}
-![](../images/capital_ranking_all_lou.png){width=80%}
+![](images/capital_ranking_all_lou.png){width=80%}
 
 ## Trendline {.tabset}
 
@@ -191,22 +191,22 @@ The data is adjusted for population, so if all cities had the same investment pe
 ### 1-year data {.tabset}
 
 #### Unadjusted 
-![](../images/capital_instate_trendline.png){width=80%}
+![](images/capital_instate_trendline.png){width=80%}
 
 #### Per capita
-![](../images/capital_instate_pp_trendline.png){width=80%}
+![](images/capital_instate_pp_trendline.png){width=80%}
 
 #### Per Lou
-![](../images/capital_instate_lou_trendline.png){width=80%}
+![](images/capital_instate_lou_trendline.png){width=80%}
 
 ### 3-year data {.tabset .active}
 
 #### Unadjusted
-![](../images/capital_instate_trendline_3yr.png){width=80%}
+![](images/capital_instate_trendline_3yr.png){width=80%}
 
 #### Per capita
-![](../images/capital_instate_pp_trendline_3yr.png){width=80%}
+![](images/capital_instate_pp_trendline_3yr.png){width=80%}
 
 #### Per Lou {.active}
-![](../images/capital_instate_lou_trendline_3yr.png){width=80%}
+![](images/capital_instate_lou_trendline_3yr.png){width=80%}
 
