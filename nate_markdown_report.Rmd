@@ -1,0 +1,26 @@
+---
+title: "CCU19"
+author: "GLP"
+date: "3/29/2020"
+output: rmdformats::material
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Venture Capital in State
+
+Louisville ranks 5th in the percent of venture capital coming from within the state
+
+![](images/capital_inhouse.png)
+
+Over the past decade we've gone from below our peer mean to above it.
+
+![](images/capital_inhouse_trendline_3yr.png)
+
+# Venture Capital Deals
+
+![](images/deals.png)
+
+![](images/deals_inhouse_trendline_3yr.png)
