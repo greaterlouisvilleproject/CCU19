@@ -30,4 +30,4 @@ cra_tract <- cra %>%
     business_loan = amount_business_1m) %>%
   per_capita_adj(total_loan:business_loan, geog = "tract")
 
-write_csv(cra_tract, "data/cra_tract.csv")
+write_csv(cra_tract, "output_data/cra_tract.csv")
