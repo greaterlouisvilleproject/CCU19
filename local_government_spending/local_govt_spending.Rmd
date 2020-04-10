@@ -1,0 +1,55 @@
+```{r setup}
+library(tidyr)
+library(readr)
+library(dplyr)
+library(stringr)
+library(magrittr)
+library(glptools)
+library(purrr)
+
+library(broom)
+library(purrr)
+
+library(feather)
+library(classInt)
+library(scales)
+library(ggplot2)
+library(ggthemes)
+library(ggrepel)
+library(showtext)
+
+showtext_auto()
+font_add("Museo Sans 300", "MuseoSans_300.otf")
+font_add("Museo Sans 300 Italic", "MuseoSans_300_Italic.otf")
+```
+
+```{r}
+local_government <- read_csv("Local Government Spending.csv", skip = 1,
+                             col_names = c("FIPS", "local_spend"), col_types = "_cn__nn")
+
+png("local_government_spending.png", 3000, 2400, res = 200)
+ranking(local_government,
+        "local_spend",
+        plot_title = "Local Government Spending per capita, 2018",
+        y_title = "Dollars",
+        sigfig = 4,
+        label_function = scales::dollar_format(accuracy = 1),
+        caption = "Source: Greater Louisville Project
+                   Dollar amounts reflect general fund spending")
+dev.off()
+```
+
+```{r}
+local_government %<>% 
+  mutate(year = 2015) %>%
+  left_join(glpdata:::population_msa_1yr %>% 
+              filter(sex == "total", race == "total") %>%
+              add_FIPS_to_MSA())
+
+
+local_government %<>%
+  mutate(donations = X4 * 1000000000 / population) %>%
+  pull_peers() %>%
+  arrange(desc(donations)) %>%
+  mutate(donations = scales::dollar(donations)) 
+```
