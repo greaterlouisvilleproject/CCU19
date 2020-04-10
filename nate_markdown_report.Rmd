@@ -1,6 +1,6 @@
 ---
-title: "CCU19"
-author: "GLP"
+title: "Community Investment"
+author: "Greater Louisville Project"
 date: "3/29/2020"
 output: rmdformats::material
 ---
@@ -24,3 +24,7 @@ Over the past decade we've gone from below our peer mean to above it.
 ![](images/deals.png)
 
 ![](images/deals_inhouse_trendline_3yr.png)
+
+# Philanthropy
+
+# Government
