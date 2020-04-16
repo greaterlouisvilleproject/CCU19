@@ -9,11 +9,13 @@ output: rmdformats::material
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Venture Capital in State
+# CDFI
 
-Louisville ranks 5th in the percent of venture capital coming from within the state
+Louisville currently ranks last in investment by Community Development Financial Institutions per capita and has steadily ranked towards the bottom of our peer cities
 
-![](images/capital_inhouse.png)
+![](output_images/CDFI/CDFI_ranking.png)
+
+![](output_images/CDFI/CDFI_trendline.png)
 
 Over the past decade we've gone from below our peer mean to above it.
 
