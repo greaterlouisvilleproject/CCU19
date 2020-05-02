@@ -1,0 +1,196 @@
+```{r setup}
+library(tidyr)
+library(readr)
+library(dplyr)
+library(stringr)
+library(magrittr)
+library(glptools)
+library(purrr)
+
+library(broom)
+library(purrr)
+
+library(feather)
+library(classInt)
+library(scales)
+library(ggplot2)
+library(ggthemes)
+library(ggrepel)
+library(showtext)
+```
+
+Read in individual giving data
+```{r read_data}
+giving_time <- function(folder, 
+                        starting_year = 2010){
+  wd <- getwd()
+  directory <- paste0(wd, "/", folder)
+  file_names <- list.files(directory)
+  n <- length(file_names)
+  y <- starting_year
+  for (i in 1:n){
+    file_path <- paste0(wd, "/", folder, "/", file_names[i])
+    df <- read_csv(file_path, 
+                   col_types = cols(STATEFIPS = col_character(), 
+                                   COUNTYFIPS = col_character()))
+    
+    if ("mars1" %in% names(df)) df %<>% rename(MARS1 = mars1)
+    
+    all_cols <- df %cols_in% 
+      c("STATEFIPS", "COUNTYFIPS", "agi_stub", "N1", 
+        "A19700", "N19700", "A00100", "N04470", "N02650", "A02650",
+        "mars1", "MARS2", "MARS4", "NUMDEP", "MARS1")
+    
+    df %<>%
+      select_at(all_cols)
+
+    df$year <- y
+    y <- y + 1
+
+    if(y == 2011){
+      output <- df
+    } else {
+      output <- bind_rows(output, df)
+    }
+  }
+  output
+}
+
+giving <- giving_time("county")
+```
+
+Process data and write to CSV
+```{r}
+giving_county_agi <- giving %>%
+  
+  # Rename variables
+  transmute(
+    FIPS = STATEFIPS %p% COUNTYFIPS,
+    year,
+    agi = if_else(year >= 2012 & agi_stub >=3, agi_stub - 1, agi_stub),
+    total_returns = N1,
+    dollars_donated = A19700 * 1000,
+    num_giving = N19700,
+    agi_num = A00100 * 1000,
+    single_returns_num = MARS1,
+    joint_returns_num  = MARS2,
+    HoH_returns_num    = MARS4,
+    dependents_num     = NUMDEP,
+    people_num         = single_returns_num + 2 * joint_returns_num + HoH_returns_num + dependents_num,
+    number_itemized = N04470,
+    income_num = N02650,
+    income_amt = A02650 * 1000) %>%
+  
+  # Merge St. Louis and subset to current peers
+  mutate(FIPS = replace(FIPS, FIPS %in% c("29189", "29510"), "MERGED")) %>%
+  pull_peers() %>%
+  filter(current == 1) %>%
+  
+  # Combine 2012-2018 AGI categories for comparability 
+  group_by(FIPS, year, agi) %>%
+  summarise_at(vars(total_returns:income_amt), sum) %>%
+  ungroup() %>%
+  mutate(pct_itemized = number_itemized / total_returns * 100)
+
+giving_county_agi %<>%
+  
+  group_by(FIPS, year) %>%
+  mutate(total_returns_city = sum(total_returns)) %>%
+  ungroup() %>%
+  
+  # Calculate percent who donated 
+  group_by(FIPS, year, agi) %>%
+  summarise(
+    donating_pct = sum(num_giving) / sum(total_returns) * 100,
+    avg_giving_per_person = sum(dollars_donated) / sum(num_giving),      # Average per all
+    avg_giving_per_donor = sum(dollars_donated) / sum(total_returns),   # Average per donor
+    avg_agi = sum(agi_num) / sum(total_returns),
+    avg_income = sum(income_amt) / sum(income_num),
+    itemizing_pct = sum(total_returns),
+    giving_pct_agi = avg_giving_per_person / avg_agi * 100,
+    giving_pct_income = avg_giving_per_person / avg_income * 100,
+    total_returns,
+    agi_pct = total_returns / total_returns_city) %>%
+  ungroup() 
+
+write_csv(giving_county_agi, "../output_data/charitable_giving.csv")
+```
+
+```{r}
+rank_graph <- ranking_data(filter(giving_county_agi, agi == 7), 
+                           c("donating_pct", "giving_pct_income")) %>%
+  pull_peers() %>%
+  select(city, donating_pct, giving_pct_income) %>%
+  pivot_longer(
+    cols = c(donating_pct giving_pct_income),
+    names_to = "variable",
+    values_to = "rank") %>%
+  mutate(variable = if_else(variable == "donating_pct",
+                            "Percent of Residents Donating",
+                            "Percent of Income Donated")) %>%
+  mutate(
+    color = if_else(city == "Louisville", "#00a9b7", "black"),
+    alpha = if_else(city == "Louisville", 1, 0.8))
+
+g <- ggplot(data = rank_graph, 
+       aes(x = factor(variable,
+                      levels = c("Percent of Residents Donating", 
+                                 "Percent of Income Donated"), ordered = T), 
+           y = rank, 
+           group = city, 
+           color = color, #factor(color, levels = c("#00a9b7", "#000000")),
+           alpha = alpha)) +
+  geom_line(size = 2) +
+  theme_bw() +
+  theme(
+    text             = element_text(family = "Museo Sans 300"),
+    plot.title       = element_text(size = 74, hjust = 0.5, margin = margin(b = 20, unit = "pt")),
+    plot.subtitle    = element_text(size = 48, hjust = 0.5),
+    axis.text.x      = element_text(size = 60),
+    legend.position  = "none",
+    panel.border     = element_blank(),
+    axis.title       = element_blank(),
+    panel.grid       = element_blank(),
+    axis.ticks       = element_blank(),
+    axis.text.y      = element_blank()) +
+  geom_label(
+    data = rank_graph %>% filter(variable == "Percent of Residents Donating"),
+    aes(label = paste0(city, " - ", rank)),
+    size = 20, 
+    #label.padding = unit(.5, "lines"), 
+    label.size = 0.0,
+    hjust = 1,
+    family = "Museo Sans 300") +
+  geom_label(
+    data = rank_graph %>% filter(variable == "Percent of Income Donated"),
+    aes(label = paste0(rank, " - ", city)),
+    size = 20, 
+    #label.padding = unit(.5, "lines"), 
+    label.size = 0.0,
+    hjust = 0,
+    family = "Museo Sans 300") +
+  labs(
+    title = "Donor Participation vs. Contribution",
+    subtitle = "AGI over $200,000") +
+  scale_y_reverse() +
+  scale_x_discrete(position = "top") +
+  scale_color_manual(values = c("#00a9b7", "black"))
+
+png("../output_images/charitable_giving/Participation vs Donation.png", 3000, 2400, res = 200)
+g
+dev.off()
+  
+```
+
+Compare to national giving data
+```{r, eval=FALSE}
+national_giving <- readxl::read_xlsx("National Giving.xlsx", col_names = c("year", "amount"))
+
+inflation <- COLA_df %>% 
+  filter(FIPS == "21111") %>% 
+  mutate(cpi = cpi[year==2018] / cpi ) %>%
+  select(year, cpi)
+
+national_giving %<>% left_join(inflation, by = "year") %>% mutate(amount = amount * cpi)
+
+```

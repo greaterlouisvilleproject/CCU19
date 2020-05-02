@@ -1,0 +1,165 @@
+```{r setup}
+library(tidyr)
+library(readr)
+library(dplyr)
+library(stringr)
+library(magrittr)
+library(glptools)
+library(purrr)
+library(leaflet)
+
+library(broom)
+library(purrr)
+
+library(feather)
+library(classInt)
+library(scales)
+library(ggplot2)
+library(ggthemes)
+library(ggrepel)
+library(showtext)
+
+showtext_auto()
+font_add("Museo Sans 300", "MuseoSans_300.otf")
+font_add("Museo Sans 300 Italic", "MuseoSans_300_Italic.otf")
+```
+
+```{r read_data}
+cra_county <- read_csv("output_data/CRA_county.csv")
+cra_tract  <- read_csv("output_data/CRA_tract.csv")
+cra_nh     <- read_csv("output_data/CRA_nh.csv")
+cra_muw    <- read_csv("output_data/CRA_muw.csv")
+
+sba_county <- read_csv("output_data/SBA_county.csv")
+
+cdfi_county <- read_csv("output_data/CDFI_county.csv")
+cdfi_tract  <- read_csv("output_data/CDFI_tract.csv")
+cdfi_nh     <- read_csv("output_data/CDFI_nh.csv")
+cdfi_muw    <- read_csv("output_data/CDFI_muw.csv")
+
+local_govt <- read_csv("output_data/local_government_spending.csv")
+
+cra_tract %<>% filter(year == 2018)
+cra_nh    %<>% filter(year == 2018)
+cra_muw   %<>% filter(year == 2018)
+
+map_tract <- glptools:::map_tract
+map_nh    <- glptools:::map_nh
+map_muw   <- glptools:::map_muw
+
+map_tract@data %<>% left_join(cra_tract, "tract")
+map_nh@data    %<>% left_join(cra_nh,    "neighborhood")
+map_muw@data   %<>% left_join(cra_muw,   "neighborhood")
+```
+
+```{r charitable_giving}
+
+```
+
+```{r local_government}
+png("output_images/local_govt_spend_ranking.png", 3000, 2400, res = 200)
+ranking(local_govt,
+        "local_spend",
+        plot_title = "Local Government Spending per capita, 2018",
+        subtitle_text = "General fund expenditures",
+        y_title = "Dollars",
+        sigfig = 4,
+        label_function = scales::dollar_format(accuracy = 1),
+        caption = "Source: Greater Louisville Project
+                   Data from Liz Farmer's analysis of city and county CAFRs")
+dev.off()
+```
+
+```{r CRA}
+png("output_images/CRA/CRA_ranking.png", 3000, 2400, res = 200)
+ranking(cra_county, 
+        amount_business_1m_pp,
+        plot_title = "Bank Loans to Small Businesses per capita, 2018",
+        subtitle_text = "Adjusted for inflation",
+        y_title = "Dollars",
+        label_function = scales::dollar_format(accuracy = 1),
+        caption_text = "Source: Greater Louisville Project
+                        Data from FFIEC CRA Reports")
+dev.off()
+
+png("output_images/CRA/CRA_trendline.png", 3000, 2400, res = 200)
+trend(cra_county, 
+      amount_business_1m_pp,
+      plot_title = "Bank Loans to Small Businesses per capita",
+      subtitle_text = "Adjusted for inflation",
+      y_title = "Dollars",
+      label_function = scales::dollar_format(accuracy = 1),
+      caption_text = "Source: Greater Louisville Project
+                      Data from FFIEC CRA Reports")
+dev.off()
+
+m <- make_map(list(map_tract, map_nh, map_muw),
+              "amount_business_1m_pp",
+              "Bank Loans to Small Business",
+              "Loans per capita",
+              units = "Dollars",
+              continuous = F,
+              var_bins = c(0, 50, 100, 250, 500, 1000, 3500))
+
+setwd("output_images/CRA")
+htmlwidgets::saveWidget(m, "cra_map.html")
+setwd("../..")
+```
+
+```{r SBA}
+png("output_images/SBA/SBA_ranking.png", 3000, 2400, res = 200)
+ranking(sba_county, 
+        sba_loan_7a_pp,
+        year = 2019,
+        plot_title = "SBA 7(a) Small Business Loans per capita, 2019",
+        subtitle_text = "Adjusted for inflation",
+        y_title = "Dollars",
+        label_function = scales::dollar_format(accuracy = 1),
+        caption_text = "Source: Greater Louisville Project
+                        Data from the U.S. Small Business Adminitration")
+dev.off()
+
+png("output_images/SBA/SBA_trendline.png", 3000, 2400, res = 200)
+trend(sba_county, 
+      sba_loan_7a_pp,
+      rollmean = 3,
+      plot_title = "SBA 7(a) Small Business Loans per capita",
+      subtitle_text = "Adjusted for inflation",
+      y_title = "Dollars",
+      label_function = scales::dollar_format(accuracy = 1),
+      axis_function = scales::dollar_format(accuracy = 1),
+      caption_text = "Source: Greater Louisville Project
+                      Data from the U.S. Small Business Adminitration")
+dev.off()
+
+```
+
+```{r CDFI}
+png("output_images/CDFI/CDFI_ranking.png", 3000, 2400, res = 200)
+ranking(cdfi_county, 
+        cdfi_pp,
+        plot_title = "CDFI Investment per capita, 2017",
+        subtitle_text = "Adjusted for inflation",
+        y_title = "Dollars",
+        label_function = scales::dollar_format(accuracy = 0.01),
+        sigfig = 5,
+        alternate_text = 9:17,
+        caption_text = "Source: Greater Louisville Project
+                        Data from the CDFI Program Data Release")
+dev.off()
+
+png("output_images/CDFI/CDFI_trendline.png", 3000, 2400, res = 200)
+trend(cdfi_county, 
+      cdfi_pp,
+      plot_title = "CDFI Investment per capita",
+      subtitle_text = "Adjusted for inflation",
+      y_title = "Dollars",
+      label_function = scales::dollar_format(accuracy = 0.01),
+      axis_function  = scales::dollar_format(accuracy = 1),
+      ylimits = c(0, 36),
+      caption_text = "Source: Greater Louisville Project
+                      Data from the CDFI Program Data Release")
+dev.off()
+```
+
+`
