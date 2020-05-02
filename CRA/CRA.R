@@ -71,16 +71,18 @@ cra_msa_1yr <- cra  %>%
   COLA(amount_under_100k:all_sb_loans, rpp = F) %>%
   per_capita_adj(num_under_100k:all_sb_loans)
 
-cra_tract <- cra  %>%
+cra_map <- cra  %>%
   filter(is.na(geog_level), FIPS == "21111") %>%
   mutate(tract = "21111" %p% str_remove(tract, "\\.")) %>%
   select(-FIPS, -income_group, -geog_level) %>%
   COLA(amount_under_100k:all_sb_loans, rpp = F) %>%
-  filter(year >= 2012) %>%
-  per_capita_adj(num_under_100k:all_sb_loans)
+  filter(year >= 2012)
 
-write_csv(cra_county, "output_data/cra_tract.csv")
-write_csv(cra_msa_1yr, "output_data/cra_tract.csv")
-write_csv(cra_tract, "output_data/cra_tract.csv")
-write_csv(cra_tract, "output_data/cra_tract.csv")
-write_csv(cra_tract, "output_data/cra_tract.csv")
+process_map(cra_map, amount_business_1m:all_sb_loans, pop_adjust = T, method = "mean", return_name = "cra") %>%
+  list2env(.GlobalEnv)
+
+write_csv(cra_county,  "output_data/CRA_county.csv")
+write_csv(cra_msa_1yr, "output_data/CRA_msa_1yr.csv")
+write_csv(cra_tract,   "output_data/CRA_tract.csv")
+write_csv(cra_nh,      "output_data/CRA_nh.csv")
+write_csv(cra_muw,     "output_data/CRA_muw.csv")

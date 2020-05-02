@@ -102,7 +102,4 @@ write_csv(cdfi_msa_1yr, "output_data/CDFI_msa.csv")
 write_csv(cdfi_tract,   "output_data/CDFI_tract.csv")
 write_csv(cdfi_nh,      "output_data/CDFI_nh.csv")
 write_csv(cdfi_muw,     "output_data/CDFI_muw.csv")
-
-
-  
   
