@@ -122,7 +122,7 @@ rank_graph <- ranking_data(filter(giving_county_agi, agi == 7),
   pull_peers() %>%
   select(city, donating_pct, giving_pct_income) %>%
   pivot_longer(
-    cols = c(donating_pct giving_pct_income),
+    cols = c(donating_pct, giving_pct_income),
     names_to = "variable",
     values_to = "rank") %>%
   mutate(variable = if_else(variable == "donating_pct",
