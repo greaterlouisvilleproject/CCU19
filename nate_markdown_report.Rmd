@@ -14,13 +14,13 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Community Development Finanical Institutions
+# Small Business Loans
 
-Louisville currently ranks last in investment by Community Development Financial Institutions per capita and has steadily ranked towards the bottom of our peer cities.
+Louisville has gone from the middle to the bottom 
 
-![](output_images/CDFI/CDFI_ranking.png)
+![](output_images/SBA/SBA_ranking.png)
 
-![](output_images/CDFI/CDFI_trendline.png)
+![](output_images/SBA/SBA_trendline.png)
 
 # Community Reinvestment Act
 
@@ -30,14 +30,14 @@ Louisville is in the middle of our peer cities in Community Reinvestment and has
 
 ![](output_images/CRA/CRA_trendline.png)
 
-# Small Business Loans
 
-Louisville has gone from the middle to the bottom 
+# Community Development Finanical Institutions
 
-![](output_images/SBA/SBA_ranking.png)
+Louisville currently ranks last in investment by Community Development Financial Institutions per capita and has steadily ranked towards the bottom of our peer cities.
 
-![](output_images/SBA/SBA_trendline.png)
+![](output_images/CDFI/CDFI_ranking.png)
 
+![](output_images/CDFI/CDFI_trendline.png)
 
 
 # Venture Capital Deals
