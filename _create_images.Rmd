@@ -28,14 +28,14 @@ font_add("Museo Sans 300 Italic", "MuseoSans_300_Italic.otf")
 individual_giving <- read_csv("output_data/charitable_giving.csv")
 
 cra_county <- read_csv("output_data/CRA_county.csv")
-cra_tract  <- read_csv("output_data/CRA_tract.csv")
+cra_tract  <- read_csv("output_data/CRA_tract.csv", col_types = "cnnn")
 cra_nh     <- read_csv("output_data/CRA_nh.csv")
 cra_muw    <- read_csv("output_data/CRA_muw.csv")
 
 sba_county <- read_csv("output_data/SBA_county.csv")
 
 cdfi_county <- read_csv("output_data/CDFI_county.csv")
-cdfi_tract  <- read_csv("output_data/CDFI_tract.csv", col_types = "cnnn")
+cdfi_tract  <- read_csv("output_data/CDFI_tract.csv")
 cdfi_nh     <- read_csv("output_data/CDFI_nh.csv")
 cdfi_muw    <- read_csv("output_data/CDFI_muw.csv")
 
