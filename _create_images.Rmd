@@ -25,7 +25,7 @@ font_add("Museo Sans 300 Italic", "MuseoSans_300_Italic.otf")
 ```
 
 ```{r read_data}
-individual_giving <- read_csv("output_data/individual_giving.csv")
+individual_giving <- read_csv("output_data/charitable_giving.csv")
 
 cra_county <- read_csv("output_data/CRA_county.csv")
 cra_tract  <- read_csv("output_data/CRA_tract.csv")
@@ -35,7 +35,7 @@ cra_muw    <- read_csv("output_data/CRA_muw.csv")
 sba_county <- read_csv("output_data/SBA_county.csv")
 
 cdfi_county <- read_csv("output_data/CDFI_county.csv")
-cdfi_tract  <- read_csv("output_data/CDFI_tract.csv")
+cdfi_tract  <- read_csv("output_data/CDFI_tract.csv", col_types = "cnnn")
 cdfi_nh     <- read_csv("output_data/CDFI_nh.csv")
 cdfi_muw    <- read_csv("output_data/CDFI_muw.csv")
 
@@ -81,7 +81,7 @@ trend(filter(individual_giving, agi == 6),
                       IRS Statistics of Income")
 dev.off()
 
-png("Charitable Giving_percent_donating.png.png", 3000, 2400, res = 200)
+png("Charitable Giving_percent_donating.png", 3000, 2400, res = 200)
 ranking(filter(individual_giving, agi == 7),
         donating_pct, 
         plot_title = "Percent of Filers Reporting Donations",
@@ -90,7 +90,7 @@ ranking(filter(individual_giving, agi == 7),
                         IRS Statistics of Income")
 dev.off()
 
-png("Charitable Giving_percent_donated_agi7.png.png", 3000, 2400, res = 200)
+png("Charitable Giving_percent_donated_agi7.png", 3000, 2400, res = 200)
 ranking(filter(individual_giving, agi == 7),
         giving_pct_income, 
         plot_title = "Percent of Income Donated",
@@ -99,7 +99,7 @@ ranking(filter(individual_giving, agi == 7),
                         IRS Statistics of Income")
 dev.off()
 
-png("Charitable Giving_percent_donated_agi72.png.png", 3000, 2400, res = 200)
+png("Charitable Giving_percent_donated_agi72.png", 3000, 2400, res = 200)
 ranking(filter(individual_giving, agi == 7),
         giving_pct_agi, 
         plot_title = "Percent of AGI Donated",

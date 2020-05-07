@@ -1,0 +1,15 @@
+name: "The Flow of Community Investment"
+output_dir: "."
+exclude: ["create_images.Rmd"]
+navbar:
+  title: "Competitive Cities Update 2019"
+  left:
+    - text: "Private"
+      href: index.html
+
+output:
+  html_document:
+    theme: paper
+    toc: true
+    toc_float: true
+    toc_collapsed: false

@@ -1,0 +1,53 @@
+---
+title: "Social Investment"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    includes:
+      in_header: header.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Individual Giving 
+
+Louisville has gone from the middle to the bottom 
+
+![](output_images/SBA/SBA_ranking.png)
+
+![](output_images/SBA/SBA_trendline.png)
+
+# Community Reinvestment Act
+
+Louisville is in the middle of our peer cities in Community Reinvestment and has been for 20 years. Overall CRA money has gone down everywhere this decade compared to last decade.
+
+![](output_images/CRA/CRA_ranking.png)
+
+![](output_images/CRA/CRA_trendline.png)
+
+
+# Community Development Finanical Institutions
+
+Louisville currently ranks last in investment by Community Development Financial Institutions per capita and has steadily ranked towards the bottom of our peer cities.
+
+![](output_images/CDFI/CDFI_ranking.png)
+
+![](output_images/CDFI/CDFI_trendline.png)
+
+
+# Venture Capital Deals
+
+Louisville is in the middle for total number of venture capital deals.
+
+![](images/deals.png)
+
+# Venture Capital In State
+
+Louisville has increasingly had more of it's overall VC funding come from in-state, although the percent of in-state deals has held steady. 
+
+![](images/capital_inhouse_trendline_3yr.png)
+
+![](images/deals_inhouse_trendline_3yr.png)
