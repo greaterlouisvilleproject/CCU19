@@ -71,12 +71,12 @@ giving_county_agi <- giving %>%
     total_returns = N1,
     dollars_donated = A19700 * 1000,
     num_giving = N19700,
-    agi_num = A00100 * 1000,
-    single_returns_num = MARS1,
-    joint_returns_num  = MARS2,
-    HoH_returns_num    = MARS4,
-    dependents_num     = NUMDEP,
-    people_num         = single_returns_num + 2 * joint_returns_num + HoH_returns_num + dependents_num,
+    agi_amt = A00100 * 1000,
+    #single_returns_num = MARS1,
+    #joint_returns_num  = MARS2,
+    #HoH_returns_num    = MARS4,
+    #dependents_num     = NUMDEP,
+    #people_num         = single_returns_num + 2 * joint_returns_num + HoH_returns_num + dependents_num,
     number_itemized = N04470,
     income_num = N02650,
     income_amt = A02650 * 1000) %>%
@@ -89,8 +89,7 @@ giving_county_agi <- giving %>%
   # Combine 2012-2018 AGI categories for comparability 
   group_by(FIPS, year, agi) %>%
   summarise_at(vars(total_returns:income_amt), sum) %>%
-  ungroup() %>%
-  mutate(pct_itemized = number_itemized / total_returns * 100)
+  ungroup() 
 
 giving_county_agi %<>%
   
@@ -101,14 +100,14 @@ giving_county_agi %<>%
   # Calculate percent who donated 
   group_by(FIPS, year, agi) %>%
   summarise(
-    donating_pct = sum(num_giving) / sum(total_returns) * 100,
-    avg_giving_per_person = sum(dollars_donated) / sum(num_giving),      # Average per all
-    avg_giving_per_donor = sum(dollars_donated) / sum(total_returns),   # Average per donor
-    avg_agi = sum(agi_num) / sum(total_returns),
-    avg_income = sum(income_amt) / sum(income_num),
-    itemizing_pct = sum(total_returns),
-    giving_pct_agi = avg_giving_per_person / avg_agi * 100,
-    giving_pct_income = avg_giving_per_person / avg_income * 100,
+    donating_pct         = num_giving / total_returns * 100,
+    avg_giving_per_filer = dollars_donated / total_returns, # Average per filer
+    avg_giving_per_donor = dollars_donated / num_giving,    # Average per donor
+    avg_agi              = agi_amt / total_returns,
+    avg_income           = income_amt / income_num,
+    pct_itemized         = number_itemized / total_returns * 100,
+    giving_pct_agi       = avg_giving_per_filer / avg_agi * 100,
+    giving_pct_income    = avg_giving_per_filer / avg_income * 100,
     total_returns,
     agi_pct = total_returns / total_returns_city) %>%
   ungroup() 
