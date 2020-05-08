@@ -1,23 +1,10 @@
 ---
 title: "The Flow of Community Investment: 2019 Conpetitive City Report"
 output: 
-  html_document
+  html_document:
+    toc: false
+    css: style.css
 ---
-
-
-<style type="text/css"> 
-h1 { 
-  text-align: center; 
-} 
-h1,h2,h3,h4,h5,h6 { 
-  font-family: "Museo Sans 300"; 
-} 
-body{ 
-  font-family: "Museo Sans 300"; 
-  text-align: center;
-  font-size: 15px; 
-} 
-</style>
 
 This is a deep dive into the data and methodology behind the Greater Louisville Project's 2019 Competitive City Report.
 

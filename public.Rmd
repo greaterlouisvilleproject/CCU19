@@ -4,20 +4,8 @@ output:
   html_document:
     toc: true
     toc_float: true
+    css: style.css
 ---
-
-<style type="text/css"> 
-h1 { 
-  text-align: center; 
-} 
-h1,h2,h3,h4,h5,h6 { 
-  font-family: "Museo Sans 300"; 
-} 
-body{ 
-  font-family: "Museo Sans 300"; 
-  font-size: 15px; 
-} 
-</style> 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
