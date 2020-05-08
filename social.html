@@ -11,7 +11,7 @@
 
 
 
-<title>The Flow of Community Investment: 2019 Conpetitive City Report</title>
+<title>Social Investment</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -374,7 +374,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">The Flow of Community Investment: 2019 Conpetitive City Report</h1>
+<h1 class="title toc-ignore">Social Investment</h1>
 
 </div>
 
@@ -388,13 +388,71 @@ h1,h2,h3,h4,h5,h6 {
 } 
 body{ 
   font-family: "Museo Sans 300"; 
-  text-align: center;
   font-size: 15px; 
 } 
 </style>
-<p>This is a deep dive into the data and methodology behind the Greater Louisville Project’s 2019 Competitive City Report.</p>
-<p>As a companion to our published report, this site provides more data, specific dollar amounts, and information about our methodology. The data and analysis included in this year’s report is complex, and many steps along the way involve human judgement. We have engaged outside experts, run multiple analyses, and consulted community partners to help us verify our conclusions. In the interest of transparency, this page explores some of the alternative decisions that could have been made during our analysis and how they impact the results. We have found that while these decisions can have large impacts on the final dolar amounts, our standing among our peer cities is typically very consistent.</p>
-<p>To the fullest extent possible, we make available all of the data and analysis used to create this report. You can find the raw data and the code used to analyse it here: <a href="https://github.com/greaterlouisvilleproject/CCU19" class="uri">https://github.com/greaterlouisvilleproject/CCU19</a>.</p>
+<p>Social investment consists of the resources avaiable to our nonprofit sector. The obtain a broad understanding of Louisville’s standing in this area, we examine two sources of flows into the nonprofit sector: individual donations and foundation grants, as well as monetary receipts to nonprofit organizations.</p>
+<div id="individual-giving" class="section level1">
+<h1>Individual Giving</h1>
+<p>Louisville ranks toward the bottom of its peers in terms of the percent of income donated by those with Adjusted Gross Income over $200,000, the highest income group available in the data.</p>
+<p><img src="output_images/charitable_giving/Charitable%20Giving_percent_donated_agi7.png" /></p>
+<p>Over time, the average percent of income donated among out peer cities has increased, while the average peercent of income donated in Louisvile has remained consistent.</p>
+<p><img src="output_images/charitable_giving/Charitable%20Giving_agi7.png" /></p>
+<p>Among almost all peer cities, donor participation is very high. In fact, Louisville has one of the highest rates of reported charitable donations among those with an income of over $200,000.</p>
+<p><img src="output_images/charitable_giving/Charitable%20Giving_percent_donating.png" /></p>
+<p>Individual giving data comes from the IRS’s Statistics of Income. It is based on charitable deductions recorded in tax documents. We focus on the top income bracket because almost all filers itermize their deductions, so the data set is nearly complete. While there is some data on lower income brackets, most filers below the top income bracket do not itemize their taxes, so the data on their charitable donations is much less consistent. The table below shows the income groups available in IRS data and the percent of filers in each incom group who itemize their deductions.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Adjusted Gross Income</th>
+<th align="left">Percent of Returns Itemized</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Under $1</td>
+<td align="left">0.0%</td>
+</tr>
+<tr class="even">
+<td align="left">$1 to $25,000</td>
+<td align="left">5.7%</td>
+</tr>
+<tr class="odd">
+<td align="left">$25,000 to $49,999</td>
+<td align="left">20.8%</td>
+</tr>
+<tr class="even">
+<td align="left">$50,000 to $74,999</td>
+<td align="left">44.3%</td>
+</tr>
+<tr class="odd">
+<td align="left">$75,000 to $99,999</td>
+<td align="left">61.4%</td>
+</tr>
+<tr class="even">
+<td align="left">$100,000 to $199,999</td>
+<td align="left">83.6%</td>
+</tr>
+<tr class="odd">
+<td align="left">$200,000 or more</td>
+<td align="left">97.5%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="foundation-grants" class="section level1">
+<h1>Foundation Grants</h1>
+<p>Foundation grants are one of the major sources of funding for nonprofit organizations. In 2017, Louisville ranked toward the bottom of its peers in the amount of grants issued by philanthropies.</p>
+<p><img src="output_images/990_images/foundation_grants_ranking.png" /></p>
+<p>Louisville ranks slightly higher in terms of overall philanthropic assets.</p>
+<p><img src="output_images/990_images/foundation_assets_ranking.png" /></p>
+</div>
+<div id="nonprofit-donations" class="section level1">
+<h1>Nonprofit Donations</h1>
+<p>As a result of relatively low individual contributions and foundation grantmaking in our city, Louisville ranks second to last among its peers in the donations received by nonprofit organizations.</p>
+<p><img src="output_images/990_images/nonprofit_receipts_ranking.png" /></p>
+<p>Fondation and nonprofit financial data comes from IRS 990 documents. For the purposes of this analysis, we chose to separate hospitals, schools, and community foundations from the majority of our analysis. While these organizations are incredibly valuable, they are also very large. The amount of money flowing through nonprofit hospital systems, university endowments, etc. is very large compared to the rest of the nonprofit ecosystem, and excluding them from our data allows us to focus on the amount of resources available to the rest of the nonprofit community, which would otherwise be overshadowes.</p>
+</div>
 
 
 

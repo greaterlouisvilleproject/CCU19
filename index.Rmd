@@ -1,53 +1,26 @@
 ---
-title: "Social Investment"
+title: "The Flow of Community Investment: 2019 Conpetitive City Report"
 output: 
-  html_document:
-    toc: true
-    toc_float: true
-    includes:
-      in_header: header.html
+  html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
-# Individual Giving 
+<style type="text/css"> 
+h1 { 
+  text-align: center; 
+} 
+h1,h2,h3,h4,h5,h6 { 
+  font-family: "Museo Sans 300"; 
+} 
+body{ 
+  font-family: "Museo Sans 300"; 
+  text-align: center;
+  font-size: 15px; 
+} 
+</style>
 
-Louisville has gone from the middle to the bottom 
+This is a deep dive into the data and methodology behind the Greater Louisville Project's 2019 Competitive City Report.
 
-![](output_images/SBA/SBA_ranking.png)
+As a companion to our published report, this site provides more data, specific dollar amounts, and information about our methodology. The data and analysis included in this year's report is complex, and many steps along the way involve human judgement. We have engaged outside experts, run multiple analyses, and consulted community partners to help us verify our conclusions. In the interest of transparency, this page explores some of the alternative decisions that could have been made during our analysis and how they impact the results. We have found that while these decisions can have large impacts on the final dolar amounts, our standing among our peer cities is typically very consistent.
 
-![](output_images/SBA/SBA_trendline.png)
-
-# Community Reinvestment Act
-
-Louisville is in the middle of our peer cities in Community Reinvestment and has been for 20 years. Overall CRA money has gone down everywhere this decade compared to last decade.
-
-![](output_images/CRA/CRA_ranking.png)
-
-![](output_images/CRA/CRA_trendline.png)
-
-
-# Community Development Finanical Institutions
-
-Louisville currently ranks last in investment by Community Development Financial Institutions per capita and has steadily ranked towards the bottom of our peer cities.
-
-![](output_images/CDFI/CDFI_ranking.png)
-
-![](output_images/CDFI/CDFI_trendline.png)
-
-
-# Venture Capital Deals
-
-Louisville is in the middle for total number of venture capital deals.
-
-![](images/deals.png)
-
-# Venture Capital In State
-
-Louisville has increasingly had more of it's overall VC funding come from in-state, although the percent of in-state deals has held steady. 
-
-![](images/capital_inhouse_trendline_3yr.png)
-
-![](images/deals_inhouse_trendline_3yr.png)
+To the fullest extent possible, we make available all of the data and analysis used to create this report. You can find the raw data and the code used to analyse it here: https://github.com/greaterlouisvilleproject/CCU19.

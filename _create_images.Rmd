@@ -99,7 +99,7 @@ ranking(filter(individual_giving, agi == 7),
                         IRS Statistics of Income")
 dev.off()
 
-png("Charitable Giving_percent_donated_agi72.png", 3000, 2400, res = 200)
+png("Charitable Giving_percent_donated_agi7_agi.png", 3000, 2400, res = 200)
 ranking(filter(individual_giving, agi == 7),
         giving_pct_agi, 
         plot_title = "Percent of AGI Donated",
@@ -151,8 +151,7 @@ m <- make_map(list(map_tract, map_nh, map_muw),
               "Bank Loans to Small Business",
               "Loans per capita",
               units = "Dollars",
-              continuous = F,
-              var_bins = c(0, 50, 100, 250, 500, 1000, 3500))
+)
 
 setwd("output_images/CRA")
 htmlwidgets::saveWidget(m, "cra_map.html")
@@ -215,4 +214,58 @@ trend(cdfi_county,
 dev.off()
 ```
 
-`
+```{r}
+pitchbook <- glpdata:::pitchbook_msa_1yr
+
+png("output_images/VC/vc_ranking.png", 3000, 2400, res = 200)
+ranking(pitchbook, 
+        total_dollars_pc,
+        year = 2017:2019,
+        plot_title = "Venture Capital Investment per capita, 2017-2019",
+        y_title = "Dollars",
+        label_function = dollar_format(accuracy = 1),
+        alternate_text = 11:17,
+        caption_text = "Source: Greater Louisville Project
+                        Pitchbook Data Extract
+                        MSA-level data")
+dev.off()
+
+png("output_images/VC/vc_trend.png", 3000, 2400, res = 200)
+trend(pitchbook, 
+      total_dollars_pc,
+      rollmean = 3,
+      plot_title = "Venture Capital Investment per capita",
+      y_title = "Dollars",
+      label_function = dollar_format(accuracy = 1),
+      axis_function = dollar_format(accuracy = 1),
+      caption_text = "Source: Greater Louisville Project
+                      Pitchbook Data Extract
+                      MSA-level data")
+dev.off()
+
+```
+
+```{r}
+png("fortune_1000_raw.png", 3000, 2400, res = 200)
+ranking(fortune, 
+      fortune_1000, 
+      plot_title = "Fortune 1000 Companies",
+      y_title = "Companies",
+      label_function = comma_format(accuracy = 1),
+      caption_text = "Source: Greater Louisville Project
+                      Pitchbook Data Extract
+                      MSA-level data")
+dev.off()
+
+png("fortune_1000_pop_adj.png", 3000, 2400, res = 200)
+ranking(fortune, 
+      fortune_1000_per_lou, 
+      plot_title = "Fortune 1000 Companies",
+      subtitle_text = "Peer city data scaled to Louisville's population",
+      label_function = comma_format(accuracy = 0.1),
+      y_title = "Companies",
+      caption_text = "Source: Greater Louisville Project
+                      Pitchbook Data Extract
+                      MSA-level data")
+dev.off()
+```

@@ -4,50 +4,89 @@ output:
   html_document:
     toc: true
     toc_float: true
-    includes:
-      in_header: header.html
 ---
+
+<style type="text/css"> 
+h1 { 
+  text-align: center; 
+} 
+h1,h2,h3,h4,h5,h6 { 
+  font-family: "Museo Sans 300"; 
+} 
+body{ 
+  font-family: "Museo Sans 300"; 
+  font-size: 15px; 
+} 
+</style> 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyr)
+library(readr)
+library(dplyr)
+library(stringr)
+library(magrittr)
+library(glptools)
+library(purrr)
+library(classInt)
+library(scales)
+library(ggplot2)
+library(ggthemes)
+library(ggrepel)
+library(showtext)
+library(leaflet)
 ```
 
-# Small Business Loans
+# Bank Loans to Small Business
 
-Louisville has gone from the middle to the bottom 
+The largest lending channel for small business is through banks. The Community Reinvestment Act requires banks to meet the credit needs of low- and moderate-income communities. Under the CRA, banks must report their lending to small businesses.
 
-![](output_images/SBA/SBA_ranking.png)
-
-![](output_images/SBA/SBA_trendline.png)
-
-# Community Reinvestment Act
-
-Louisville is in the middle of our peer cities in Community Reinvestment and has been for 20 years. Overall CRA money has gone down everywhere this decade compared to last decade.
+Since the early 2000's, bank loans have decreased in Louisville in line with its peer cities. Over the past few years, Louisville has seen a moderate amount of small business lending compared to its peer cities.
 
 ![](output_images/CRA/CRA_ranking.png)
 
 ![](output_images/CRA/CRA_trendline.png)
 
+```{r, echo=F, message=FALSE}
+cra_tract  <- read_csv("output_data/CRA_tract.csv", col_types = "cnnnnn")
+cra_nh     <- read_csv("output_data/CRA_nh.csv")
+cra_muw    <- read_csv("output_data/CRA_muw.csv")
+
+make_map(list(cra_tract, cra_nh, cra_muw), "amount_business_1m_pp", 
+         "Bank Loans to Small Businesses", 
+         "Loans<br>per person", 
+         units = "Dollars",
+         continuous = F,
+         var_bins = c(0, 50, 100, 250, 500, 1000, 3500))
+
+```
+
+# Venture Capital Investment
+
+Louisville is in the middle of its peer cities for total number of venture capital deals.
+
+![](output_images/VC/VC_ranking.png)
+
+
+![](output_images/VC/VC_trend.png)
+
+# Federally-Supported SBA Loans
+
+The U.S. Small Business Administration's 7(a) loan program helps small business access credit by guaranteeing the repayment of most of the loa amount to the lender. These federal funds help small businesses by providing them easier, cheaper access to credit, and they help lenders by helping them recoup their losses in the case of a default.
+
+While Louisville used to rank toward the top of its peers in SBA 7(a) loans, its has not increased the amount of 7(a) loans at the same pase as its peers. In 2019, Louisville ranked 16th in the total dollar amount of SBA 7(a) loans in the community.
+
+![](output_images/SBA/SBA_ranking.png)
+
+![](output_images/SBA/SBA_trendline.png)
+
 
 # Community Development Finanical Institutions
 
-Louisville currently ranks last in investment by Community Development Financial Institutions per capita and has steadily ranked towards the bottom of our peer cities.
+Louisville currently ranks last in investment by Community Development Financial Institutions per capita and has steadily ranked towards the bottom of our peer cities. 
 
 ![](output_images/CDFI/CDFI_ranking.png)
 
 ![](output_images/CDFI/CDFI_trendline.png)
 
 
-# Venture Capital Deals
-
-Louisville is in the middle for total number of venture capital deals.
-
-![](images/deals.png)
-
-# Venture Capital In State
-
-Louisville has increasingly had more of it's overall VC funding come from in-state, although the percent of in-state deals has held steady. 
-
-![](images/capital_inhouse_trendline_3yr.png)
-
-![](images/deals_inhouse_trendline_3yr.png)
