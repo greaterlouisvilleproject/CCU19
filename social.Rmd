@@ -13,13 +13,25 @@ library(dplyr)
 library(readr)
 ```
 
-Social investment consists of the resources avaiable to our nonprofit sector. The obtain a broad understanding of Louisville's standing in this area, we examine two sources of flows into the nonprofit sector: individual donations and foundation grants, as well as monetary receipts to nonprofit organizations.
+<center>
+Social investment is the resources avaiable to our nonprofit sector. The obtain a broad understanding of Louisville's standing in this area, we examine two sources of flows into the nonprofit sector: <b>individual giving</b> and <b>foundation grants</b>. To measur the results of our collective giving and ability to attract resources from other areas, we measure <b>nonprofit donations</b>.
+</center>
+
+<br>
+
+***
+
+<br>
 
 # Individual Giving 
 
+Individual giving measures the amount of money individuals donate to charity. Our data comes from 
+
+## Ranking
+
 Louisville ranks toward the bottom of its peers in terms of the percent of income donated by those with Adjusted Gross Income over $200,000, the highest income group available in the data.
 
-![](output_images/charitable_giving/Charitable Giving_percent_donated_agi7.png)
+![](output_images/charitable_giving/Charitable Giving_percent_donated_agi7.png){width=80%}
 
 Over time, the average percent of income donated among out peer cities has increased, while the average peercent of income donated in Louisvile has remained consistent.
 

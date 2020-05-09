@@ -1,5 +1,5 @@
 ---
-title: "The Flow of Community Investment: 2019 Conpetitive City Report"
+title: "The Flow of Community Investment:<br>2019 Competitive City Report"
 output: 
   html_document:
     toc: false
@@ -8,6 +8,12 @@ output:
 
 This is a deep dive into the data and methodology behind the Greater Louisville Project's 2019 Competitive City Report.
 
-As a companion to our published report, this site provides more data, specific dollar amounts, and information about our methodology. The data and analysis included in this year's report is complex, and many steps along the way involve human judgement. We have engaged outside experts, run multiple analyses, and consulted community partners to help us verify our conclusions. In the interest of transparency, this page explores some of the alternative decisions that could have been made during our analysis and how they impact the results. We have found that while these decisions can have large impacts on the final dolar amounts, our standing among our peer cities is typically very consistent.
+As a companion to our published report, this site provides more data, specific dollar amounts, and information about our methodology. The data and analysis included in this year's report is complex, and many steps along the way involve human judgement. We have engaged outside experts, run multiple analyses, and consulted community partners to help us verify our conclusions.
 
-To the fullest extent possible, we make available all of the data and analysis used to create this report. You can find the raw data and the code used to analyse it here: https://github.com/greaterlouisvilleproject/CCU19.
+In the interest of transparency, this page explores some of the alternative decisions that could have been made during our analysis and how they impact the results. We have found that while these decisions can have large impacts on the final dolar amounts, our standing among our peer cities is typically very consistent.
+
+To the fullest extent possible, we make available all of the data and analysis used to create this report. You can find the raw data and the code used to analyze it here: https://github.com/greaterlouisvilleproject/CCU19.
+
+<b>Insert back to report page/PDF when available.
+
+Provide information/link to request reports.</b>

@@ -1,12 +1,12 @@
+h1,h2,h3,h4,h5,h6,body{ 
+  font-family: "Museo Sans 300"; 
+} 
 h1 { 
-    text-align: center; 
+    text-align: center;
+    line-height:1.4;
 } 
-h1,h2,h3,h4,h5,h6 { 
-  font-family: "Museo Sans 300"; 
-} 
+
 body{ 
-  font-family: "Museo Sans 300"; 
-  text-align: center;
   font-size: 15px; 
 } 
 
