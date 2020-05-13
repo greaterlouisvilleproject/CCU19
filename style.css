@@ -72,3 +72,11 @@ Edit the height of its elements so the GLP logo is properly sized. */
     padding-bottom: 10px;
     line-height: 27px;
 }
+
+/* Resise CCU19 in the navbar if the screen is narrow.
+   Otherwise, the navbar becomes two lines and obscures the table of contents.*/
+@media (max-width: 450px) {
+  .navbar-brand {
+    font-size: 18px;
+  }
+}

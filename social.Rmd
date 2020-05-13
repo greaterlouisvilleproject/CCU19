@@ -46,9 +46,9 @@ Among almost all peer cities, donor participation is very high. In fact, Louisvi
 
 ![](output_images/individual_giving/individual_giving_percent_donating.png){width=80%}
 
-## Methodology {.tabset .tabset-fade}
+## Sources and notes {.tabset .tabset-fade}
 
-### Source and notes
+### Methodology
 
 Our calculations are based on charitable deductions recorded in tax documents. We calculate the average percent of income donated by dividing the total amount of charitable giving deductions by the total amount of income.
 
@@ -117,11 +117,11 @@ There is a slight difference in the data when calculating donations as a percent
 
 # Foundation Grants
 
-Foundation grants are one of the major sources of funding for nonprofit organizations.
+Foundation grants are one of the major sources of funding for nonprofit organizations. Endowed resources have become an increasingly important source or revenue for nonprofits: as a percentage of national charitable giving, foundation grants have increased from 12% of national giving in 2000 to 18% in 2018.
 
 ## Grants Ranking
 
-Foundation grants are one of the major sources of funding for nonprofit organizations. In 2017, Louisville ranked toward the bottom of its peers in  the amount of grants issued by philanthropies.
+In 2017, Louisville ranked toward the bottom of its peers in the amount of grants issued by philanthropies.
 
 ![](output_images/990_images/foundation_grants_ranking.png){width=80%}
 

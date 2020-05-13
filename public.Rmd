@@ -11,7 +11,13 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Public investment represents the amount of money spent by the city and county gover
+Public investment represents the amount of money spent by local city and county government. Across the country, local government spending performs many essential functions. Many cities also use local government as a tool to invest in their communities with the hope of overcome histories of disinvestment, improving educational outcomes, and more.
+
+<br>
+
+***
+
+<br>
 
 # Local Government Spending
 
@@ -19,10 +25,30 @@ Local government spending is the amount of general fund spending per person from
 
 While Louisville ranks 10th on this metric, it should be noted that Louisville's spending is essentially the same as the three governments after it. Louisville's spending would have to drop by less than 1% for Louisville to drop from 10th and 13th in local government spending. 
 
-![](output_images/local_government/local_govt_spend_ranking.png)
+![](output_images/local_government/local_govt_spend_ranking.png){width=80%}
+
+## Sources and notes {.tabset .tabset-fade}
+
+### Sources
+
+Our data comes from city and county government Comprehensive Annual Financial Reports (CAFRs). CAFRs are a standardized reporting tool that cities, counties, states, and other government entities use to report their finances in a consistent format. These audited documents are the best way to compare finances across cities.
+
+For Louisville, the general fund spending figure is from the following table on page 20 of the 2018 CAFR (or page 33 of the PDF that contains it):
+
+<center>Louisville/Jefferson County Metro Government  
+Statement of Revenues, Expenditures, and Changes in Fund Balances  
+Governmental Funds  
+For the Year Ended June 30, 2018  </center>
+
+Louisville's CAFRs are available here: https://louisvilleky.gov/government/management-budget/comprehensive-annual-financial-report-louisville-financials
+
+   
+### Methodology
 
 Louisville is a combined city-county government, while most of our peer cities are separate city and county governments. To create comparable data, we first calculated spending per resident for both city and county governments. We then added the two amounts together.
 
 ![](output_images/local_government/Local government diagram.png)
 
-Liz Farmer, Governing Magazine's public finance reporter, performed the analysis presented in this report. The GLP performed seperate versions of the analysis, one using different city and county budget documents and another using tax revenue estimates. The other analyses' findings are consistent with the one presented in the report: Louisville's local government spending is in the bottom tier of its peer cities.
+While figures like total revenue and spending are comparable across Comprehensive Annual Financial Reports, governments have leeway in how they group and account for different activities. For example, a government's efforts to control air pollution could be accounted for as a standalone entity like Louisville's Air Pollution Control District, they could fall under the umbrella of economic development, or they could be considered part of a health department. For consistency, we avoid making comparisons between specific expenses, and we focus on the top-line number of general fund spending.
+
+Liz Farmer, Governing Magazine's public finance reporter, performed the analysis presented in this report. The GLP created two independent versions of the analysis, one using different city and county budget documents and another using tax revenue estimates. The other analyses' findings are consistent with the one presented in the report: Louisville's local government spending is in the bottom tier of its peer cities.
