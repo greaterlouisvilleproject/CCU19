@@ -2,7 +2,7 @@
 /* Text Formatting */
 
 h1, h2, h3, h4, h5, h6, body { 
-  font-family: "Museo Sans 300", "Roboto", "Helvetica", "Century Gothic"; 
+  font-family: "Museo Sans 300", "Roboto", "Helvetica", "Century Gothic", "Arial"; 
 } 
 
 h1, h2 { 
