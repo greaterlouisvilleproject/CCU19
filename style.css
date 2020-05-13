@@ -1,16 +1,47 @@
-h1,h2,h3,h4,h5,h6,body{ 
-  font-family: "Museo Sans 300"; 
-} 
-h1 { 
-    text-align: center;
-    line-height:1.4;
+
+/* Text Formatting */
+
+h1, h2, h3, h4, h5, h6, body { 
+  font-family: "Museo Sans 300", "Roboto", "Helvetica", "Century Gothic"; 
 } 
 
-body{ 
+h1, h2 { 
+  line-height:1.4;
+}
+
+h1 { 
+  text-align: center;
+}
+
+body { 
   font-size: 15px; 
 } 
 
- .navbar {
+/* Scroll Snap 
+Snap the scroll to the top of sections
+h1.title margin ensures the page title is not obscured by the navbar */
+
+html {
+  scroll-snap-type: y proximity;
+  scroll-padding: 15px;
+}
+
+h1, h2 {
+  scroll-snap-align: start;
+}
+
+h1.title {
+  scroll-margin-top: 100px;
+}
+
+.toc-ignore {
+  scroll-snap-type: none;
+}
+
+/* Set up the navrbar to include the glp logo. 
+Edit the height of its elements so the GLP logo is properly sized. */
+
+.navbar {
   min-height: 80px;
 }
 
