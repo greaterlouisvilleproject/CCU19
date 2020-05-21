@@ -25,7 +25,7 @@ library(showtext)
 library(leaflet)
 ```
 
-We measure private investment across several areas. 
+Private investment includes resources that support the business environment. We examine <b>bank loans to small businesses</b> as a measure of small business growth and equity within out community, <b>venture capital investment</b> as a measure of access to capital for high-grow startups, and <b>federally-supported SBA loans</b> as a measure of the utilization of federal small business funding. We track <b>Community Development Financial Institution investment</b> because of its importance as a tool to expand access to capital across the city. Finally, we compare the number of <b>Fortune 1000 headquarters</b> in Louisville to its peers to measure the number of very large corporations in Louisville. 
 
 <br>
 
