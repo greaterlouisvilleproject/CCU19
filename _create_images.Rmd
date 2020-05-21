@@ -162,6 +162,17 @@ m <- make_map(list(map_tract, map_nh, map_muw),
 setwd("output_images/CRA")
 htmlwidgets::saveWidget(m, "cra_map.html")
 setwd("../..")
+
+m <- make_map(list(map_tract, map_nh, map_muw),
+              "amount_business_1m_pp",
+              "Bank Loans to Small Business",
+              "Loans per capita",
+              units = "Dollars",
+)
+
+setwd("output_images/CRA")
+htmlwidgets::saveWidget(m, "cra_map.html")
+setwd("../..")
 ```
 
 ```{r SBA}
@@ -220,7 +231,7 @@ trend(cdfi_county,
 dev.off()
 ```
 
-```{r}
+```{r VC}
 pitchbook <- glpdata:::pitchbook_msa_1yr
 
 png("output_images/VC/vc_ranking.png", 3000, 2400, res = 200)
@@ -241,6 +252,32 @@ trend(pitchbook,
       total_dollars_pc,
       rollmean = 3,
       plot_title = "Venture Capital Investment per capita",
+      y_title = "Dollars",
+      label_function = dollar_format(accuracy = 1),
+      axis_function = dollar_format(accuracy = 1),
+      caption_text = "Source: Greater Louisville Project
+                      Pitchbook Data Extract
+                      MSA-level data")
+dev.off()
+
+png("output_images/VC/deals_trend.png", 3000, 2400, res = 200)
+trend(pitchbook, 
+      deals_per_100000,
+      #rollmean = 3,
+      plot_title = "Venture Capital Deals per capita",
+      y_title = "Deals per 100,000 residents",
+      label_function = dollar_format(accuracy = 1),
+      axis_function = dollar_format(accuracy = 1),
+      caption_text = "Source: Greater Louisville Project
+                      Pitchbook Data Extract
+                      MSA-level data")
+dev.off()
+
+png("output_images/VC/median_deal_trend.png", 3000, 2400, res = 200)
+trend(pitchbook, 
+      median_deal,
+      #rollmean = 3,
+      plot_title = "Median VC Deal Size",
       y_title = "Dollars",
       label_function = dollar_format(accuracy = 1),
       axis_function = dollar_format(accuracy = 1),
@@ -275,3 +312,15 @@ ranking(fortune,
                       MSA-level data")
 dev.off()
 ```
+
+```{r}
+educ   <- glpdata:::
+jobs   <- glpdata::jobs_county
+health <- glpdata::health_county
+qop    <- glpdata::qop_county
+
+
+
+
+```
+

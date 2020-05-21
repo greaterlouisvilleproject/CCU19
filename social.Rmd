@@ -14,7 +14,7 @@ library(readr)
 ```
 
 <center>
-Social investment is the resources avaiable to our nonprofit sector. The obtain a broad understanding of Louisville's standing in this area, we examine two sources of flows into the nonprofit sector: <b>individual giving</b> and <b>foundation grants</b>. To measure the results of our collective giving and ability to attract resources from other areas, we measure <b>nonprofit donations</b>.
+For this report, we define social investment as the financial resources available to Louisville's nonprofit sector. To obtain a broad understanding of our community's standing in this area, we examine two sources of flows into the nonprofit sector: <b>individual giving</b> and <b>foundation grants</b>. To measure the results of our collective giving and ability to attract resources from other areas, we measure <b>nonprofit donations</b>.
 </center>
 
 <br>
@@ -25,7 +25,7 @@ Social investment is the resources avaiable to our nonprofit sector. The obtain 
 
 # Individual Giving 
 
-Individual giving measures the amount of donations individuals make to organizations such as charities and churches. Our data comes from IRS tax filings. We focus on data for filers with an income over $200,000 because they have a very high rate of itemizing deductions, so the data is very complete. We find that while Louisville ranks 2nd  in the percentage of residents donating to charity, Louisville ranks 16th in the percentage of income donated. 
+Individual giving measures the amount of donations individuals make to organizations such as charities and religious institutions. Our data comes from IRS tax filings. We focus on data for filers with an income over $200,000 because they have a very high rate of itemizing deductions, so the data is very complete. <b>We find that while Louisville ranks 2nd  in the percentage of residents donating to charity, Louisville ranks 16th in the percentage of income donated.</b> 
 
 ## Ranking
 
@@ -35,7 +35,7 @@ Louisville ranks toward the bottom of its peers in terms of the percent of incom
 
 ## Trend
 
-Over time, the average percent of income donated among Louisville's peer cities has increased, while the average percent of income donated in Louisvile has remained fairly constant. In 2017, Louisville filers with an AGI of over $200,000 donated an average of 3.5% of their income compared to a eer average of 4.5%. If residents in this income group donated an addition 1% of their income so Louisville were at the peer average, an additional 
+Over time, the average percent of income donated among Louisville's peer cities has increased, while the average percent of income donated in Louisvile has remained fairly constant. <b>In 2017, Louisville filers with an AGI of over \$200,000 donated an average of 3.5% of their income compared to a peer average of 4.5%.</b> If residents in this income group donated an addition 1% of their income so Louisville were at the peer average, an additional \$80 million dollars would be made available to our nonprofit community.
 
 ![](output_images/individual_giving/individual_giving_agi7.png){width=80%}
 
@@ -46,13 +46,13 @@ Among almost all peer cities, donor participation is very high. In fact, Louisvi
 
 ![](output_images/individual_giving/individual_giving_percent_donating.png){width=80%}
 
-## Sources and notes {.tabset .tabset-fade}
+## Methodology {.tabset .tabset-fade}
 
-### Methodology
+### Sources and Notes
 
 Our calculations are based on charitable deductions recorded in tax documents. We calculate the average percent of income donated by dividing the total amount of charitable giving deductions by the total amount of income.
 
-There are some caveats to the data. Tax decutions for charitable donations are limited to 60% of a person's AGI, so some donations made above this limit are not captured in the data. It is also likely that tax filers sometimes over- or under-report their donations due to human error or issues with recordkeeping. While issues of accuracy are possible, filers do have a large incentive to report accurate data to both maximize their deductions and avoid penalties from the IRS.
+There are some caveats to the data. Tax deductions for charitable donations are limited to 60% of a person's AGI, so some donations made above this limit are not captured in the data. It is also likely that tax filers sometimes over- or under-report their donations due to human error or issues with recordkeeping. While issues of accuracy are possible, filers do have a large incentive to report accurate data to both maximize their deductions and avoid penalties from the IRS.
 
 Individual giving data comes from the IRS's Statistics of Income County data available here: https://www.irs.gov/statistics/soi-tax-stats-county-data
 
@@ -145,4 +145,4 @@ As a result of relatively low individual contributions and foundation grantmakin
 ![](output_images/990_images/nonprofit_receipts_ranking.png){width=80%}
 
 
-Fondation and nonprofit financial data comes from IRS 990 documents. For the purposes of this analysis, we chose to separate hospitals, schools, and community foundations from the majority of our analysis. While these organizations are incredibly valuable, they are also very large. The amount of money flowing through nonprofit hospital systems, university endowments, etc. is very large compared to the rest of the nonprofit ecosystem, and excluding them from our data allows us to focus on the amount of resources available to the rest of the nonprofit community, which would otherwise be overshadowes.
+Fondation and nonprofit financial data comes from IRS 990 documents. For the purposes of this analysis, we chose to separate hospitals, schools, and community foundations from the majority of our analysis. While these organizations are incredibly valuable, they are also very large. The amount of money flowing through nonprofit hospital systems, university endowments, etc. is very large compared to the rest of the nonprofit ecosystem, and excluding them from our data allows us to focus on the amount of resources available to the rest of the nonprofit community, which would otherwise be overshadowed.

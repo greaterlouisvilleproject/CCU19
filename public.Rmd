@@ -11,7 +11,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Public investment represents the amount of money spent by local city and county government. Across the country, local government spending performs many essential functions. Many cities also use local government as a tool to invest in their communities with the hope of overcome histories of disinvestment, improving educational outcomes, and more.
+Public investment is resources available to local city and county government. We measure public investment using <b>local government spending</b>. Across the country, local government spending performs many essential functions. Many cities also use local government as a tool to invest in their communities with the hope of overcoming histories of disinvestment, improving educational outcomes, and more.
 
 <br>
 
@@ -27,7 +27,7 @@ While Louisville ranks 10th on this metric, it should be noted that Louisville's
 
 ![](output_images/local_government/local_govt_spend_ranking.png){width=80%}
 
-## Sources and notes {.tabset .tabset-fade}
+## Methodology {.tabset .tabset-fade}
 
 ### Sources
 
@@ -43,7 +43,7 @@ For the Year Ended June 30, 2018  </center>
 Louisville's CAFRs are available here: https://louisvilleky.gov/government/management-budget/comprehensive-annual-financial-report-louisville-financials
 
    
-### Methodology
+### Data Analysis
 
 Louisville is a combined city-county government, while most of our peer cities are separate city and county governments. To create comparable data, we first calculated spending per resident for both city and county governments. We then added the two amounts together.
 

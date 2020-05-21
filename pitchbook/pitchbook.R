@@ -5,13 +5,7 @@ library(stringr)
 library(magrittr)
 library(glptools)
 
-path <- "data-raw/jobs/pitchbook/"
-
-pop_df <- glpdata:::population_msa_1yr %>%
-  filter(sex == "total", race == "total", year == 2018) %>%
-  select(MSA, population)
-
-fortune <- readxl::read_excel(path %p% "PitchBook_1000.xlsx", skip = 7)
+fortune <- readxl::read_excel("pitchbook/PitchBook_1000.xlsx", skip = 7)
 
 fortune %<>%
   transmute(
@@ -21,13 +15,11 @@ fortune %<>%
   left_join(MSA_zip, by = "zip") %>%
   group_by(MSA) %>%
   summarise(fortune_1000 = n()) %>%
-  per_capita_adj(fortune_1000, geog = "MSA", keep_pop = T) %>%
-  pull_peers() %>%
-  filter(current == 1) %>%
-  filter(MSA != "31140") %>%
-  summarise(m = mean(fortune_1000_pp)) %>%
-  pull(m) * 1304162
+  per_capita_adj(fortune_1000, keep_pop = T) %>%
+  pull_peers(add_info = F) %>%
+  mutate(fortune_1000_per_lou = fortune_1000_pp * population[MSA == "31140"])
 
+  
 VC <- readxl::read_excel(path %p% "PitchBook_VC.xlsx", skip = 7,
                          col_types = c("text", "text", "text", "text", "date",
                                        "numeric", "text", "text"))

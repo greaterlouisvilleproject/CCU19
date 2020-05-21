@@ -1,5 +1,5 @@
 ---
-title: "Community Investment"
+title: "Private Investment"
 output: 
   html_document:
     toc: true
@@ -25,15 +25,32 @@ library(showtext)
 library(leaflet)
 ```
 
+We measure private investment across several areas. 
+
+<br>
+
+***
+
+<br>
+
 # Bank Loans to Small Business
 
-The largest lending channel for small business is through banks. The Community Reinvestment Act requires banks to meet the credit needs of low- and moderate-income communities. Under the CRA, banks must report their lending to small businesses.
+After personal funds, the largest source of funding for small businesses is bank loans.^1 Our data comes from lending reports required by the Community Reinvestment Act.
 
-Since the early 2000's, bank loans have decreased in Louisville in line with its peer cities. Over the past few years, Louisville has seen a moderate amount of small business lending compared to its peer cities.
+
+## Ranking
+
+Louisville ranks 9th among its peers in the volume of bank loans to small businesses (those with gross annual revenues under $1 million).
 
 ![](output_images/CRA/CRA_ranking.png)
 
+## Trend
+
+Since the early 2000's, the volume of bank loans to small businesses has decreased in Louisville in line with its peer cities. Over the past few years, Louisville has seen a moderate amount of small business lending compared to its peer cities.
+
 ![](output_images/CRA/CRA_trendline.png)
+
+## Map
 
 ```{r, echo=F, message=FALSE}
 cra_tract  <- read_csv("output_data/CRA_tract.csv", col_types = "cnnnnn")
@@ -49,32 +66,119 @@ make_map(list(cra_tract, cra_nh, cra_muw), "amount_business_1m_pp",
 
 ```
 
+## Methodolgy {.tabset .tabset-fade}
+
+### Source
+
+The Community Reinvestment Act (CRA) is a federal law enacted in 1977 to encourage depository institutions to meet the credit needs of low- and moderate-income neighborhoods. Under the CRA, banks with assets of over $1.221 billion must report detailed small business loan data.^2 In 2017, approximately 90% of outstanding small business loans were held at banks that met the threshold for mandatory reporting.^3 Many smaller institutions also choose to report this data.^2 While some small lenders are not included, our conclusions are based on a data set that captures a large majority of small business lending from banks.
+
+1. https://www.fedsmallbusiness.org/medialibrary/FedSmallBusiness/files/2020/2020-sbcs-employer-firms-report
+2. https://www.federalreserve.gov/econres/notes/feds-notes/recent-trends-in-small-business-lending-and-the-community-reinvestment-act-20180102.htm
+3. https://cdn.advocacy.sba.gov/wp-content/uploads/2020/01/28154019/Small-Business-Lending-in-the-US-2017.pdf
+
+<br>
+
+***
+
+<br>
+
 # Venture Capital Investment
 
-Louisville is in the middle of its peer cities for total number of venture capital deals.
+Venture capital investment provides resources to startup companies with high potential for growth. Venture capital is important for helping local companies scale, creating jobs and wealth in our community. 
+
+## Ranking
+
+Louisville ranks in the middle of its peer cities for the dollar amount of venture capital investment.
 
 ![](output_images/VC/VC_ranking.png)
 
+## Trend
+
+Venture capital investment is highly variable from year-to-year. While the number of venture capital deals is farily consistent, the total dollar amount fluctuates based on occassional large investments.
 
 ![](output_images/VC/VC_trend.png)
 
+## Methodolgy {.tabset .tabset-fade}
+
+### Source
+
+Data on venture capital investment comes from Pitchbook.
+
+<br>
+
+***
+
+<br>
+
 # Federally-Supported SBA Loans
 
-The U.S. Small Business Administration's 7(a) loan program helps small business access credit by guaranteeing the repayment of most of the loa amount to the lender. These federal funds help small businesses by providing them easier, cheaper access to credit, and they help lenders by helping them recoup their losses in the case of a default.
+The U.S. Small Business Administration's 7(a) loan program helps small businesses access credit by guaranteeing the repayment of most of the loan amount to the lender. These federal funds help small businesses by providing them easier, more affordable access to credit, and they help lenders by helping them recoup their losses in the case of a default.
 
-While Louisville used to rank toward the top of its peers in SBA 7(a) loans, its has not increased the amount of 7(a) loans at the same pase as its peers. In 2019, Louisville ranked 16th in the total dollar amount of SBA 7(a) loans in the community.
+While Louisville used to rank toward the top of its peers in SBA 7(a) loans, its has not increased the amount of 7(a) loans at the same pace as its peers. In 2019, Louisville ranked 16th in the total dollar amount of SBA 7(a) loans in the community.
+
+## Ranking
+
+In 2019, Louisville ranked second-to-last among its peers in the dollar amount of SBA-guaranteed loans in the community.
 
 ![](output_images/SBA/SBA_ranking.png)
+
+## Trend
+
+Louisville had a similar volume of SBA-guarnteed loans compared to its pers for many years. Since 2012, however, Louisville's peers have seen a large increase in SBA 7(a) loans, while Louisville's performance has remained reltively flat.
 
 ![](output_images/SBA/SBA_trendline.png)
 
 
+## Methodolgy {.tabset .tabset-fade}
+
+### Source
+
+Data on SBA 7(a) loans comes from the U.S. Small Business Administration.
+
+<br>
+
+***
+
+<br>
+
 # Community Development Finanical Institutions
 
-Louisville currently ranks last in investment by Community Development Financial Institutions per capita and has steadily ranked towards the bottom of our peer cities. 
+Community Development Financial Institutions (CDFIs) are collaborative organizations that bring together diverse private and public sector investors to create economic opportunity in low-income communities.
+
+## Ranking
+
+In 2017, Louisville ranked last in CDFI investment per capita with almost no CDFI investment.
 
 ![](output_images/CDFI/CDFI_ranking.png)
 
+## Trend
+
+Since 2000, Louisville has consistently ranked towards the bottom of its peer cities in terms of CDFI investment. The jumps in CDFI lending in the community have typically come from outside organizations providing financiing to projects located within Louisville.
+ 
 ![](output_images/CDFI/CDFI_trendline.png)
 
+## Methodolgy {.tabset .tabset-fade}
 
+### Source
+
+Data on CDFI lending comes from the CDFI fund's transaction level report.
+
+<br>
+
+***
+
+<br>
+
+# Fortune 1000 Companies
+
+One measure of economic capacity for Louisville is its number of Fortune 1000 companies. Fortune 1000 headquarters provide many high-paying jobs, attract talent, and build capacity for corporate involvement in the community.
+
+## Ranking
+
+Louisville ranks in line with its peer cities in the number of Fortune 1000 headquarters located in the city. In the graph below, the data is adjusted for population. The number of Fortune 1000 companies in other cities are scaled as if they had the same population as Louisville.
+
+![](output_images/VC/fortune_1000_pop_adj.png)
+
+### Source
+
+Data on Fortune 1000 companies comes from Pitchbook.
