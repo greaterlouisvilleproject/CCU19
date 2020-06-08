@@ -1,10 +1,16 @@
 ---
-title: "The Flow of Community Investment:<br>2019 Competitive City Report"
+title: ""
 output: 
   html_document:
     toc: false
     css: style.css
+    includes:
+      in_header: banner_image.html
 ---
+
+```{r echo=FALSE}
+htmltools::includeHTML("buttons.html")
+```
 
 This is a deep dive into the data and methodology behind the Greater Louisville Project's 2019 Competitive City Report.
 
@@ -14,6 +20,4 @@ In the interest of transparency, this page explores some of the alternative deci
 
 To the fullest extent possible, we make available all of the data and analysis used to create this report. You can find the raw data and the code used to analyze it here: https://github.com/greaterlouisvilleproject/CCU19.
 
-<b>Insert back to report page/PDF when available.
 
-Provide information/link/button to request reports.</b>

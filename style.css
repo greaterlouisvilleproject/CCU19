@@ -80,3 +80,51 @@ Edit the height of its elements so the GLP logo is properly sized. */
     font-size: 18px;
   }
 }
+
+.container2{
+    padding: 2.5rem 0 2.5rem;
+    text-align: center;
+}
+
+.block-container {
+    width: 100%;
+    padding: 0 3rem;
+    margin: 0 auto;
+    position: relative;
+    z-index: 5;
+    max-width: 68rem;
+}
+
+.button-container {
+  padding-top: 0.7rem;
+}
+
+.button {
+    font-family: "Museo Sans 300", "Roboto", "Helvetica", "Century Gothic", "Arial";
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 1;
+    font-style: normal;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+    background-color: #39607A;
+    padding: 12px 12px;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+  background-color: #f37e2d;
+  color: white;
+  text-decoration: none;
+}
+
+@media (max-width: 800px) {
+  .mobile-button {
+    display: block;
+    float: none;
+    margin: 1em;
+  }
+}
+
