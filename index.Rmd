@@ -1,5 +1,5 @@
 ---
-title: ""
+pagetitle: "Home"
 output: 
   html_document:
     toc: false
@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r echo=FALSE}
-htmltools::includeHTML("buttons.html")
+htmltools::includeHTML("site_files/buttons.html")
 ```
 
 This is a deep dive into the data and methodology behind the Greater Louisville Project's 2019 Competitive City Report.
