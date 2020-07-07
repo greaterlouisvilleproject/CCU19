@@ -131,6 +131,10 @@ Louisville ranks slightly higher in terms of overall philanthropic assets.
 
 ![](output_images/990_images/foundation_assets_ranking.png){width=80%}
 
+## Methodology
+
+See the methodology section for "Nonprofit Donations"
+
 <br>
 
 ***
@@ -146,3 +150,51 @@ As a result of relatively low individual contributions and foundation grantmakin
 
 
 Fondation and nonprofit financial data comes from IRS 990 documents. For the purposes of this analysis, we chose to separate hospitals, schools, and community foundations from the majority of our analysis. While these organizations are incredibly valuable, they are also very large. The amount of money flowing through nonprofit hospital systems, university endowments, etc. is very large compared to the rest of the nonprofit ecosystem, and excluding them from our data allows us to focus on the amount of resources available to the rest of the nonprofit community, which would otherwise be overshadowed.
+
+
+## Methodology {.tabset .tabset-fade}
+
+### Sources
+
+Our data combines tax information from the Urban Institute's National Center for Charitable Statistics, the IRS's digitized records, and PDFs of tax returns obtained from archive.org.
+
+### Data analysis
+
+While working with the data, newer data became available from improved sources. As such, we ran the analysis using multiple data sources and for multiple years before arriving at out final, most up-to-date analysis. Our first approach relied on Urban Institute data from 2014. Our second approach relied on a combination of Urban Institute data and digitized information from 990 PDFs, and our final analysis combines data from all three to cross-check and complete the data set to the fullest extent possible. While this process improved the quality of the data, the results were the same across the different specifications. 
+
+### Alternate models {.tabset .tabset-fade}
+
+For the purposes of our analysis, we excluded hospitals, colleges and universities, and community foundations from the data set. While hospitals, colleges, and universities are important community organizations, their finances are very large and often of a different nature than the rest of the nonprofit ecosystem. There are also many nonprofits which are "pass-through" fundraising organizations for hospitals and universities, and excluding them from our analysis prevents the double counting of the donations. We excluded community foundations because they create issues with double counting of donations. Additionally, they play a role in between a nonprofit and a foundation and are organized differently across communities. We show the impact of these decisions below, and we come to the conclusion that our analysis is robust: these decisions do not impact our conclusion that we rank toward the bottom of our peer cities in social funding.
+
+#### All nonprofits
+
+Including hospitals, colleges, universities, and community foundations in our analysis moves Louisville form 16th to 14th, however we still rank near the bottom of our peers.
+
+![](output_images/990_images/all_nonprofit_receipts_ranking.png){width=80%}
+
+#### Hospitals
+
+Louisville seems to rank toward the middle of its peers in donations to hospitals per capita. However, many hospital systems extend beyond the boundaries of the communities they are headquartered in, so the data is not very comparable across cities.
+
+![](output_images/990_images/hospital_receipts_ranking.png){width=80%}
+
+#### Colleges and Universities
+
+Louisville seems to rank toward the top of its peersin terms of donations to colleges and universities. However, there is a large amount of double-counting due to pass-through organizations, so the data is not reliable.
+
+![](output_images/990_images/school_receipts_ranking.png){width=80%}
+
+#### Community Foundations {.tabset .tabset-fade}
+
+##### Receipts
+
+Louisville ranks toward the middle of its peer cities in donations to community foundations. We exclude community foundations from our analysis of nonprofit receipts because the money they distribute is captured as donations to other nonprofits.
+
+![](output_images/990_images/cf_receipts_ranking.png){width=80%}
+
+##### Grants
+
+Louisville ranks toward the middle of its peer cities in grants from community foundations. We exclude community foundations from our analysis of foundation grants because they function very differently than other foundations. Including them in our analysis of foundation grants moves Louisville from 15th to 14th, so our conclusions remain the same.
+
+![](output_images/990_images/cf_grants_ranking.png){width=80%}
+

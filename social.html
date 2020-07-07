@@ -25,6 +25,19 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<!-- Google Analytics -->
+  <script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-64248402-1', 'auto', {'allowLinker': true});
+	ga('send', 'pageview');
+
+	ga('require', 'linker');
+	ga('linker:autoLink', ['greaterlouisvilleproject.github.io', 'greaterlouisvilleproject.org'], false);
+  </script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -363,7 +376,7 @@ div.tocify {
       </ul>
       <ul class = "nav navbar-nav-logo navbar-right hidden-sm">
         <li>
-          <a href="https://greaterlouisvilleproject.org"><img src="glp.svg" alt ="logo" height="60"></a>
+          <a href="https://greaterlouisvilleproject.org"><img src="site_files/glp.svg" alt ="logo" height="60"></a>
         </li>
       </ul>      
     </div><!--/.nav-collapse -->
@@ -504,6 +517,10 @@ For this report, we define social investment as the financial resources availabl
 <h2>Assets Ranking</h2>
 <p>Louisville ranks slightly higher in terms of overall philanthropic assets.</p>
 <p><img src="output_images/990_images/foundation_assets_ranking.png" style="width:80.0%" /></p>
+</div>
+<div id="methodology-1" class="section level2">
+<h2>Methodology</h2>
+<p>See the methodology section for “Nonprofit Donations”</p>
 <p><br></p>
 <hr />
 <p><br></p>
@@ -516,6 +533,49 @@ For this report, we define social investment as the financial resources availabl
 <p>As a result of relatively low individual contributions and foundation grantmaking in our city, Louisville ranks second to last among its peers in the donations received by nonprofit organizations.</p>
 <p><img src="output_images/990_images/nonprofit_receipts_ranking.png" style="width:80.0%" /></p>
 <p>Fondation and nonprofit financial data comes from IRS 990 documents. For the purposes of this analysis, we chose to separate hospitals, schools, and community foundations from the majority of our analysis. While these organizations are incredibly valuable, they are also very large. The amount of money flowing through nonprofit hospital systems, university endowments, etc. is very large compared to the rest of the nonprofit ecosystem, and excluding them from our data allows us to focus on the amount of resources available to the rest of the nonprofit community, which would otherwise be overshadowed.</p>
+</div>
+<div id="methodology-2" class="section level2 tabset tabset-fade">
+<h2>Methodology</h2>
+<div id="sources" class="section level3">
+<h3>Sources</h3>
+<p>Our data combines tax information from the Urban Institute’s National Center for Charitable Statistics, the IRS’s digitized records, and PDFs of tax returns obtained from archive.org.</p>
+</div>
+<div id="data-analysis" class="section level3">
+<h3>Data analysis</h3>
+<p>While working with the data, newer data became available from improved sources. As such, we ran the analysis using multiple data sources and for multiple years before arriving at out final, most up-to-date analysis. Our first approach relied on Urban Institute data from 2014. Our second approach relied on a combination of Urban Institute data and digitized information from 990 PDFs, and our final analysis combines data from all three to cross-check and complete the data set to the fullest extent possible. While this process improved the quality of the data, the results were the same across the different specifications.</p>
+</div>
+<div id="alternate-models" class="section level3 tabset tabset-fade">
+<h3>Alternate models</h3>
+<p>For the purposes of our analysis, we excluded hospitals, colleges and universities, and community foundations from the data set. While hospitals, colleges, and universities are important community organizations, their finances are very large and often of a different nature than the rest of the nonprofit ecosystem. There are also many nonprofits which are “pass-through” fundraising organizations for hospitals and universities, and excluding them from our analysis prevents the double counting of the donations. We excluded community foundations because they create issues with double counting of donations. Additionally, they play a role in between a nonprofit and a foundation and are organized differently across communities. We show the impact of these decisions below, and we come to the conclusion that our analysis is robust: these decisions do not impact our conclusion that we rank toward the bottom of our peer cities in social funding.</p>
+<div id="all-nonprofits" class="section level4">
+<h4>All nonprofits</h4>
+<p>Including hospitals, colleges, universities, and community foundations in our analysis moves Louisville form 16th to 14th, however we still rank near the bottom of our peers.</p>
+<p><img src="output_images/990_images/all_nonprofit_receipts_ranking.png" style="width:80.0%" /></p>
+</div>
+<div id="hospitals" class="section level4">
+<h4>Hospitals</h4>
+<p>Louisville seems to rank toward the middle of its peers in donations to hospitals per capita. However, many hospital systems extend beyond the boundaries of the communities they are headquartered in, so the data is not very comparable across cities.</p>
+<p><img src="output_images/990_images/hospital_receipts_ranking.png" style="width:80.0%" /></p>
+</div>
+<div id="colleges-and-universities" class="section level4">
+<h4>Colleges and Universities</h4>
+<p>Louisville seems to rank toward the top of its peersin terms of donations to colleges and universities. However, there is a large amount of double-counting due to pass-through organizations, so the data is not reliable.</p>
+<p><img src="output_images/990_images/school_receipts_ranking.png" style="width:80.0%" /></p>
+</div>
+<div id="community-foundations" class="section level4 tabset tabset-fade">
+<h4>Community Foundations</h4>
+<div id="receipts" class="section level5">
+<h5>Receipts</h5>
+<p>Louisville ranks toward the middle of its peer cities in donations to community foundations. We exclude community foundations from our analysis of nonprofit receipts because the money they distribute is captured as donations to other nonprofits.</p>
+<p><img src="output_images/990_images/cf_receipts_ranking.png" style="width:80.0%" /></p>
+</div>
+<div id="grants" class="section level5">
+<h5>Grants</h5>
+<p>Louisville ranks toward the middle of its peer cities in grants from community foundations. We exclude community foundations from our analysis of foundation grants because they function very differently than other foundations. Including them in our analysis of foundation grants moves Louisville from 15th to 14th, so our conclusions remain the same.</p>
+<p><img src="output_images/990_images/cf_grants_ranking.png" style="width:80.0%" /></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 

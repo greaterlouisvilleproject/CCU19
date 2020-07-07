@@ -8,4 +8,6 @@ output:
     toc_float: true
     toc_collapsed: false
     self_contained: false
+    includes:
+      in_header: analytics.html
     
